@@ -7,8 +7,10 @@ public class GameController : MonoBehaviour {
 
 	[Header("UI Elements")]
 	[SerializeField] Text UIText;
+	[SerializeField] Text ScoreText;
 	[SerializeField] Image Blackscreen;
 	[SerializeField] GameObject gameover;
+	public float score;
 
 	[HideInInspector]
 	public bool GameStarted = false;
@@ -19,9 +21,11 @@ public class GameController : MonoBehaviour {
 	private SceneControl scene;
 
 	void Start(){
+		score = 0;
 		gameover.SetActive(false);
 		GetComponents();
 		UIText.GetComponent<Fade>().SetVisibility(true);
+		ScoreText.text = score.ToString();
 	}
 
 	void Update(){
@@ -58,6 +62,11 @@ public class GameController : MonoBehaviour {
 	IEnumerator GameoverText(){
 		yield return new WaitForSeconds (0.75f);
 		gameover.SetActive(true);
+	}
+
+	public void AddScore(){
+		score++;
+		ScoreText.text = score.ToString();
 	}
 
 }

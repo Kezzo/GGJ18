@@ -72,6 +72,16 @@ public class LightUpBlock : MonoBehaviour
         Solidifying = 9
     }
 
+    public bool blockActive(){
+        return m_currentState == State.Activating ||
+                m_currentState == State.Activate || 
+                m_currentState == State.DimmingDown;
+    }
+
+    public bool blockActivatable(){
+        return m_currentState == State.Activateable;
+    }
+
     [SerializeField]
     private State m_currentState;
 
@@ -242,12 +252,5 @@ public class LightUpBlock : MonoBehaviour
         return foundStateDuration != null ? foundStateDuration.m_DurationInSeconds : 0f;
     }
 
-    /// <summary>
-    /// Called by animation.
-    /// </summary>
-    public void Hidden()
-    {
-        m_currentState = State.MovingToNewLocation;
-    }
 }
 
