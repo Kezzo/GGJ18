@@ -28,6 +28,7 @@ public class LightTracker : MonoBehaviour {
 			}
 		}
 		gc = gameObject.GetComponent<GameController>();
+		lightCounter.text = ""+lightcount.ToString("000");
 	}
 
 
@@ -41,7 +42,7 @@ public class LightTracker : MonoBehaviour {
 		lightcount = 0;
 		foreach(GameObject transmitter in transmitters){
 			m_lightUpBlock = transmitter.transform.GetComponent<LightUpBlock>();
-			lightCounter.text = lightcount.ToString();
+			lightCounter.text = ""+lightcount.ToString("000");
 			if(m_lightUpBlock.blockActive()){
 				lightcount++;
 			}
