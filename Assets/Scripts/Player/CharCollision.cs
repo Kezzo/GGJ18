@@ -8,7 +8,7 @@ public class CharCollision : MonoBehaviour {
 	void OnCollisionEnter(Collision other) {
 		if(other.gameObject.tag == "Transmitter"){
 			block = other.transform.GetComponent<BlockLightUp>();
-			block.LightUp();
+			block.Activate();
 		}
     }
 }

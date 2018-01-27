@@ -1,13 +1,16 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+
+
+
+
+
+
 using UnityEngine;
 
 public class BlockLightUp : MonoBehaviour
 {
-    [SerializeField]
-    private float m_dimDownTimeInSeconds;
-
-    [SerializeField]
-    private float m_flashUpTimeInSeconds;
+    [Header("References")]
 
     [SerializeField]
     private Light m_light;
@@ -21,54 +24,134 @@ public class BlockLightUp : MonoBehaviour
     [SerializeField]
     private Material m_material;
 
+    [Header("Gradient")]
+
     [SerializeField]
     private Color m_maxLitUpColor;
 
     [SerializeField]
     private Color m_minLitUpColor;
 
+    [Header("State Times")]
+
     [SerializeField]
-    private AnimationCurve m_dimDownCurve;
+    private List<StateDuration> m_stateDurationsList;
 
-    private MaterialPropertyBlock m_materialPropertyBlock;
+    [Serializable]
+    private class StateDuration
+    {
+        public State m_State;
+        public float m_DurationInSeconds;
+    }
 
-    public float m_normalizedBrightness;
-    private bool isDimmingDown;
-    private bool isFlashingUp;
+    private MaterialPropertyBlock m_gradientMaterialPropertyBlock;
+    private MaterialPropertyBlock m_dissolveMaterialPropertyBlock;
+
+    private float m_activationValue;
+    public float ActivationValue { get { return m_activationValue; } }
+
+    private float m_normalizedActiveTimeLeft;
+    private float m_normalizedDissolveValue;
+    private float m_normalizedDissolvedTimeLeft;
+
+    private enum State
+    {
+        Activateable = 0,
+        Activating = 1,
+        Activate = 2,
+        DimmingDown = 3,
+        Dissolving = 4,
+        Dissolved = 5,
+        Solidifying = 6
+    }
+
+    [SerializeField]
+    private State m_currentState;
 
     // Use this for initialization
     private void Start ()
 	{
-	    m_light.color = m_minLitUpColor;
+        m_currentState = State.Activateable;
+        m_activationValue = 0f;
+        m_normalizedActiveTimeLeft = 0f;
+        m_normalizedDissolveValue = 1f;
+        m_normalizedDissolvedTimeLeft = 0f;
 
-        m_materialPropertyBlock = new MaterialPropertyBlock();
+        m_light.color = m_minLitUpColor;
 
-        m_meshRenderer.GetPropertyBlock(m_materialPropertyBlock);
-        m_materialPropertyBlock.SetFloat("_GradientLerp", Mathf.Lerp(-1f, 2f, 0f));
-        m_meshRenderer.SetPropertyBlock(m_materialPropertyBlock);
-    }
+        m_gradientMaterialPropertyBlock = new MaterialPropertyBlock();
+
+        UpdateBrightness();
+	}
 
     // Update is called once per frame
     private void Update ()
     {
-        if (isDimmingDown)
+        switch (m_currentState)
         {
-            m_normalizedBrightness = Mathf.Clamp01(m_normalizedBrightness - (1 / m_dimDownTimeInSeconds) * Time.deltaTime);
+            case State.Activating:
+                m_activationValue = Mathf.Clamp01(m_activationValue + 
+                    (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
 
-            if (m_normalizedBrightness <= 0)
-            {
-                isDimmingDown = false;
-            }
-        }
-        else if (isFlashingUp)
-        {
-            m_normalizedBrightness = Mathf.Clamp01(m_normalizedBrightness + (1 / m_flashUpTimeInSeconds) * Time.deltaTime);
+                if (m_activationValue >= 1)
+                {
+                    m_normalizedActiveTimeLeft = 1;
+                    m_currentState = State.Activate;
+                }
+                break;
+            case State.Activate:
 
-            if (m_normalizedBrightness >= 1)
-            {
-                isFlashingUp = false;
-                isDimmingDown = true;
-            }
+                m_normalizedActiveTimeLeft = Mathf.Clamp01(m_normalizedActiveTimeLeft - 
+                    (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
+
+                if (m_normalizedActiveTimeLeft <= 0)
+                {
+                    m_currentState = State.DimmingDown;
+                }
+
+                break;
+            case State.DimmingDown:
+                m_activationValue = Mathf.Clamp01(m_activationValue - 
+                    (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
+
+                if (m_activationValue <= 0)
+                {
+                    m_normalizedDissolveValue = 1f;
+                    m_currentState = State.Dissolving;
+                }
+
+                break;
+            case State.Dissolving:
+                m_normalizedDissolveValue = Mathf.Clamp01(m_normalizedDissolveValue - 
+                    (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
+
+                if (m_normalizedDissolveValue <= 0)
+                {
+                    m_normalizedDissolvedTimeLeft = 1f;
+                    m_currentState = State.Dissolved;
+                }
+
+                break;
+            case State.Dissolved:
+                m_normalizedDissolvedTimeLeft = Mathf.Clamp01(m_normalizedDissolvedTimeLeft - 
+                    (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
+
+                if (m_normalizedDissolvedTimeLeft <= 0)
+                {
+                    m_currentState = State.Solidifying;
+                }
+
+                break;
+            case State.Solidifying:
+                m_normalizedDissolveValue = Mathf.Clamp01(m_normalizedDissolveValue +
+                   (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
+
+                if (m_normalizedDissolveValue >= 1)
+                {
+                    m_currentState = State.Activateable;
+                }
+
+                break;
         }
 
         UpdateBrightness();
@@ -76,35 +159,38 @@ public class BlockLightUp : MonoBehaviour
 
     private void UpdateBrightness()
     {
-        m_light.color = Color.Lerp(m_minLitUpColor, m_maxLitUpColor, m_normalizedBrightness);
+        m_light.color = Color.Lerp(m_minLitUpColor, m_maxLitUpColor, m_activationValue);
 
-        m_meshRenderer.GetPropertyBlock(m_materialPropertyBlock);
-        m_materialPropertyBlock.SetFloat("_GradientLerp", Mathf.Lerp(-1f, 2f, m_normalizedBrightness));
-        m_meshRenderer.SetPropertyBlock(m_materialPropertyBlock);
+        m_meshRenderer.GetPropertyBlock(m_gradientMaterialPropertyBlock);
+        m_gradientMaterialPropertyBlock.SetFloat("_GradientLerp", Mathf.Lerp(-1f, 2f, m_activationValue));
+        m_meshRenderer.SetPropertyBlock(m_gradientMaterialPropertyBlock);
+
+        m_meshRenderer.GetPropertyBlock(m_gradientMaterialPropertyBlock);
+        m_gradientMaterialPropertyBlock.SetFloat("_DissolveValue", m_normalizedDissolveValue);
+        m_meshRenderer.SetPropertyBlock(m_gradientMaterialPropertyBlock);
     }
 
-    public void LightUp()
+    public void Activate()
     {
-        isFlashingUp = true;
-        isDimmingDown = false;
-    }
-}
-
-[CustomEditor(typeof(BlockLightUp))]
-class BlockLightUpEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-
-        if (GUILayout.Button("LightUp!"))
+        if (m_currentState != State.Activateable)
         {
-            BlockLightUp blockLightUp = (BlockLightUp) target;
-
-            if (blockLightUp != null)
-            {
-                blockLightUp.LightUp();
-            }
+            return;
         }
+
+        m_activationValue = 0f;
+        m_currentState = State.Activating;
+    }
+
+    private float GetStateDuration(State state)
+    {
+        StateDuration foundStateDuration = m_stateDurationsList.Find(stateDuration => stateDuration.m_State == state);
+
+        if (foundStateDuration == null)
+        {
+            Debug.LogError(string.Format("StateDuration of state {0} is missing!", state));
+        }
+
+        return foundStateDuration != null ? foundStateDuration.m_DurationInSeconds : 0f;
     }
 }
+

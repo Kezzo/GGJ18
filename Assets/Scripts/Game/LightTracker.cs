@@ -37,7 +37,7 @@ public class LightTracker : MonoBehaviour {
 		lightvalue = 0;
 		foreach(GameObject transmitter in transmitters){
 			block = transmitter.transform.GetComponent<BlockLightUp>();
-			lightvalue += block.m_normalizedBrightness;
+			lightvalue += block.ActivationValue;
 		}
 		Debug.Log(lightvalue);
 		if(lightvalue == 0){
@@ -47,7 +47,7 @@ public class LightTracker : MonoBehaviour {
 
 	public void FirstLight()
     {
-		startTransmitter.GetComponent<BlockLightUp>().LightUp();
+		startTransmitter.GetComponent<BlockLightUp>().Activate();
     }
 
 	public IEnumerator StartChecking(){
