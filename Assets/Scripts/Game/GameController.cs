@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour {
 	private SceneControl scene;
 	public bool gamePaused = false;
 
+	public float endScore;
+	public float bestScore = 0;
+
 	void Start(){
 		score = 0;
 		gameover.SetActive(false);
@@ -37,8 +40,11 @@ public class GameController : MonoBehaviour {
 		}
 		if(GameOver){
 			Blackscreen.GetComponent<Fade>().SetVisibility(true);
+			endScore = score;
+			if(endScore > bestScore){
+				bestScore = endScore;
+			}
 			StartCoroutine(GameoverText());
-			EndInput();
 		}
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			PauseGame();
@@ -52,12 +58,6 @@ public class GameController : MonoBehaviour {
 			gameUI.SetActive(true);
 			lt.FirstLight();
 			StartCoroutine(lt.StartChecking());
-		}
-	}
-
-	void EndInput(){
-		if(Input.anyKey){
-			StartCoroutine(scene.ReloadScene(2.0f));
 		}
 	}
 
