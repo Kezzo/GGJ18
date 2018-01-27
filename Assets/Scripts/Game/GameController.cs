@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] Text ScoreText;
 	[SerializeField] Image Blackscreen;
 	[SerializeField] GameObject gameover;
+	[SerializeField] GameObject gameUI;
 	public float score;
 
 	[HideInInspector]
@@ -19,10 +20,12 @@ public class GameController : MonoBehaviour {
 	public bool GameOver = false;
 	private LightTracker lt;
 	private SceneControl scene;
+	public bool gamePaused = false;
 
 	void Start(){
 		score = 0;
 		gameover.SetActive(false);
+		gameUI.SetActive(false);
 		GetComponents();
 		UIText.GetComponent<Fade>().SetVisibility(true);
 		ScoreText.text = ""+score.ToString("000");
@@ -37,12 +40,16 @@ public class GameController : MonoBehaviour {
 			StartCoroutine(GameoverText());
 			EndInput();
 		}
+		if(Input.GetKeyDown(KeyCode.Escape)){
+			PauseGame();
+		}
 	}
 
 	void StartInput(){
 		if(Input.anyKey){
 			GameStarted = true;
 			UIText.GetComponent<Fade>().SetVisibility(false);
+			gameUI.SetActive(true);
 			lt.FirstLight();
 			StartCoroutine(lt.StartChecking());
 		}
@@ -67,6 +74,16 @@ public class GameController : MonoBehaviour {
 	public void AddScore(){
 		score++;
 		ScoreText.text = ""+score.ToString("000");
+	}
+
+	public void PauseGame(){
+		if(!gamePaused){
+			gamePaused = true;
+			Time.timeScale = 0.0f;
+		} else {
+			gamePaused = false;
+			Time.timeScale = 1.0f;
+		}
 	}
 
 }
