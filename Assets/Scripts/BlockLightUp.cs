@@ -24,6 +24,9 @@ public class BlockLightUp : MonoBehaviour
     [SerializeField]
     private Material m_material;
 
+    [SerializeField]
+    private Transform m_rotationRoot;
+
     [Header("Gradient")]
 
     [SerializeField]
@@ -90,6 +93,8 @@ public class BlockLightUp : MonoBehaviour
     // Update is called once per frame
     private void Update ()
     {
+        m_rotationRoot.Rotate(new Vector3(0f, 0.3f, 0.3f));
+
         switch (m_currentState)
         {
             case State.Activating:
