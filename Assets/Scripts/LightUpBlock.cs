@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
-
-
-
-
-
 using UnityEngine;
 
-public class BlockLightUp : MonoBehaviour
+public class LightUpBlock : MonoBehaviour
 {
     [Header("References")]
 
@@ -26,6 +20,9 @@ public class BlockLightUp : MonoBehaviour
 
     [SerializeField]
     private Transform m_rotationRoot;
+
+    [SerializeField]
+    private Animator m_animator;
 
     [Header("Gradient")]
 
@@ -59,6 +56,7 @@ public class BlockLightUp : MonoBehaviour
     private float m_normalizedActiveTimeLeft;
     private float m_normalizedDissolveValue;
     private float m_normalizedDissolvedTimeLeft;
+    private float m_normalizedAppearanceTimeLeft;
 
     private enum State
     {
@@ -67,8 +65,11 @@ public class BlockLightUp : MonoBehaviour
         Activate = 2,
         DimmingDown = 3,
         Dissolving = 4,
-        Dissolved = 5,
-        Solidifying = 6
+        Hiding = 5,
+        MovingToNewLocation = 6,
+        Appearing = 7,
+        Dissolved = 8,
+        Solidifying = 9
     }
 
     [SerializeField]
@@ -82,6 +83,7 @@ public class BlockLightUp : MonoBehaviour
         m_normalizedActiveTimeLeft = 0f;
         m_normalizedDissolveValue = 1f;
         m_normalizedDissolvedTimeLeft = 0f;
+        m_normalizedAppearanceTimeLeft = 1f;
 
         m_light.color = m_minLitUpColor;
 
@@ -136,11 +138,42 @@ public class BlockLightUp : MonoBehaviour
                 if (m_normalizedDissolveValue <= 0)
                 {
                     m_normalizedDissolvedTimeLeft = 1f;
+                    m_currentState = State.Hiding;
+                }
+
+                break;
+
+            case State.Hiding:
+
+                if (!m_animator.GetBool("Hidden"))
+                {
+                    m_animator.SetBool("Hidden", true);
+                }
+
+                break;
+
+            case State.MovingToNewLocation:
+
+                LightCubeLocationOrchestrator.Instance.SetToRandomVacantLocation(this);
+                m_currentState = State.Appearing;
+
+                break;
+
+            case State.Appearing:
+
+                m_normalizedAppearanceTimeLeft = Mathf.Clamp01(m_normalizedAppearanceTimeLeft -
+                    (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
+
+                if (m_normalizedAppearanceTimeLeft <= 0)
+                {
+                    m_animator.SetBool("Hidden", false);
                     m_currentState = State.Dissolved;
                 }
 
                 break;
+
             case State.Dissolved:
+
                 m_normalizedDissolvedTimeLeft = Mathf.Clamp01(m_normalizedDissolvedTimeLeft - 
                     (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
 
@@ -167,8 +200,8 @@ public class BlockLightUp : MonoBehaviour
 
     private void UpdateBrightness()
     {
-        if (m_currentState == State.Dissolving || m_currentState == State.Dissolved ||
-            m_currentState == State.Solidifying)
+        if (m_currentState == State.Dissolving || m_currentState == State.Dissolved || m_currentState == State.Hiding ||
+            m_currentState == State.MovingToNewLocation || m_currentState == State.Appearing || m_currentState == State.Solidifying)
         {
             m_light.color = Color.Lerp(m_skeletonLightColor, m_minLitUpColor, m_normalizedDissolveValue);
         }
@@ -207,6 +240,14 @@ public class BlockLightUp : MonoBehaviour
         }
 
         return foundStateDuration != null ? foundStateDuration.m_DurationInSeconds : 0f;
+    }
+
+    /// <summary>
+    /// Called by animation.
+    /// </summary>
+    public void Hidden()
+    {
+        m_currentState = State.MovingToNewLocation;
     }
 }
 

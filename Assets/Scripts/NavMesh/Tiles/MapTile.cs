@@ -7,7 +7,7 @@ public class MapTile : MonoBehaviour
     private Transform[] gates;
 
     [SerializeField]
-    private BlockLightUp lightItem;
+    private LightUpBlock lightItem;
 
     private void Awake()
     {

@@ -2,8 +2,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(BlockLightUp))]
-public class BlockLightUpEditor : Editor
+[CustomEditor(typeof(LightUpBlock))]
+public class LightUpBlockEditor : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -11,11 +11,11 @@ public class BlockLightUpEditor : Editor
 
         if (GUILayout.Button("Activate!"))
         {
-            BlockLightUp blockLightUp = (BlockLightUp)target;
+            LightUpBlock lightUpBlock = (LightUpBlock)target;
 
-            if (blockLightUp != null)
+            if (lightUpBlock != null)
             {
-                blockLightUp.Activate();
+                lightUpBlock.Activate();
             }
         }
     }

@@ -11,7 +11,7 @@ public class LightTracker : MonoBehaviour {
 
 	[Header("Start delay")]
 	[SerializeField] float waitTime;
-	private BlockLightUp block;
+	private LightUpBlock m_lightUpBlock;
 	private float lightvalue;
 	public bool isChecking;
 
@@ -36,8 +36,8 @@ public class LightTracker : MonoBehaviour {
 	void CheckLights(){
 		lightvalue = 0;
 		foreach(GameObject transmitter in transmitters){
-			block = transmitter.transform.GetComponent<BlockLightUp>();
-			lightvalue += block.ActivationValue;
+			m_lightUpBlock = transmitter.transform.GetComponent<LightUpBlock>();
+			lightvalue += m_lightUpBlock.ActivationValue;
 		}
 		Debug.Log(lightvalue);
 		if(lightvalue == 0){
@@ -47,7 +47,7 @@ public class LightTracker : MonoBehaviour {
 
 	public void FirstLight()
     {
-		startTransmitter.GetComponent<BlockLightUp>().Activate();
+		startTransmitter.GetComponent<LightUpBlock>().Activate();
     }
 
 	public IEnumerator StartChecking(){
