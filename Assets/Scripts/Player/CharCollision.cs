@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharCollision : MonoBehaviour {
+	private BlockLightUp block;
 
-	[HideInInspector]
-	[SerializeField] bool canUse;
-
-	void OnTriggerEnter(Collider other) {
-		if(other.tag == "Box"){
-			canUse = true;
+	void OnCollisionEnter(Collision other) {
+		if(other.gameObject.tag == "Transmitter"){
+			block = other.transform.GetComponent<BlockLightUp>();
+			block.LightUp();
 		}
     }
-
-	void OnTriggerExit(Collider other){
-		if(other.tag == "Box"){
-			canUse = false;
-		}
-	}
 }
