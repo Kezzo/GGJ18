@@ -13,6 +13,7 @@ public class LightTracker : MonoBehaviour {
 	[SerializeField] float waitTime;
 	private BlockLightUp block;
 	private float lightvalue;
+	public bool isChecking;
 
 	private GameController gc;
 
@@ -27,10 +28,8 @@ public class LightTracker : MonoBehaviour {
 
 
     void Update(){
-		if(gc.GameStarted){ 
-			CheckLights(); 
-		} else {
-			Debug.Log("Game not started");
+		if(isChecking){ 
+			CheckLights();
 		}
 	}
 
@@ -41,9 +40,8 @@ public class LightTracker : MonoBehaviour {
 			lightvalue += block.ActivationValue;
 		}
 		Debug.Log(lightvalue);
-
 		if(lightvalue == 0){
-			Debug.Log("Game over");
+			gc.GameOver = true;
 		}
 	}
 
@@ -52,5 +50,9 @@ public class LightTracker : MonoBehaviour {
 		startTransmitter.GetComponent<BlockLightUp>().Activate();
     }
 
+	public IEnumerator StartChecking(){
+		yield return new WaitForSeconds(0.5f);
+		isChecking = true;
+	}
 
 }
