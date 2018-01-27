@@ -32,7 +32,7 @@ public class BlockLightUp : MonoBehaviour
 
     private MaterialPropertyBlock m_materialPropertyBlock;
 
-    public float m_normalizedBrightness = 0f;
+    public float m_normalizedBrightness;
     private bool isDimmingDown;
     private bool isFlashingUp;
 
