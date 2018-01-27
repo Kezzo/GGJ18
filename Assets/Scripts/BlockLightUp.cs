@@ -32,6 +32,9 @@ public class BlockLightUp : MonoBehaviour
     [SerializeField]
     private Color m_minLitUpColor;
 
+    [SerializeField]
+    private Color m_skeletonLightColor;
+
     [Header("State Times")]
 
     [SerializeField]
@@ -159,7 +162,15 @@ public class BlockLightUp : MonoBehaviour
 
     private void UpdateBrightness()
     {
-        m_light.color = Color.Lerp(m_minLitUpColor, m_maxLitUpColor, m_activationValue);
+        if (m_currentState == State.Dissolving || m_currentState == State.Dissolved ||
+            m_currentState == State.Solidifying)
+        {
+            m_light.color = Color.Lerp(m_skeletonLightColor, m_minLitUpColor, m_normalizedDissolveValue);
+        }
+        else
+        {
+            m_light.color = Color.Lerp(m_minLitUpColor, m_maxLitUpColor, m_activationValue);
+        }
 
         m_meshRenderer.GetPropertyBlock(m_gradientMaterialPropertyBlock);
         m_gradientMaterialPropertyBlock.SetFloat("_GradientLerp", Mathf.Lerp(-1f, 2f, m_activationValue));
