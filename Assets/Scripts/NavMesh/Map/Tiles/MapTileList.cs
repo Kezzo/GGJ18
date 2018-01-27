@@ -23,7 +23,7 @@ public class MapTileList : MonoBehaviour
 
     public MapTile GetTile(int index)
     {
-        //index = Math.Abs(index) % tiles.Length;
+        index = Math.Abs(index) % tiles.Length;
         return tiles[index];
     }
 }

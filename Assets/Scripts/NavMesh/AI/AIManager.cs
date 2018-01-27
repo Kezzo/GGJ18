@@ -48,22 +48,34 @@ public class AIManager : MonoBehaviour
         }
 
         // Search for a free gate
-        var freeGate =
-            from gate in mapManager.Gates
+        var freeGates =
+            from gate in mapManager.Gates.Randomize()
             where !targetedGates.Contains(gate)
             select gate;
 
         // Assign the gate
-        var selectedGate = freeGate.FirstOrDefault();
+        var selectedGate = freeGates.FirstOrDefault();
         if (selectedGate != null)
         {
             targetedGates.Add(selectedGate);
             targetedGatesByUnit[agent] = selectedGate;
+            agent.AssignedLight(selectedGate);
         }
 
         return selectedGate;
     }
 
+    public void ReturnAGate(AIAgent agent)
+    {
+        Gate oldGate = null;
+        if (targetedGatesByUnit.TryGetValue(agent, out oldGate))
+        {
+            targetedGates.Remove(oldGate);
+            targetedGatesByUnit.Remove(agent);
+        }
+    }
+
+    [ContextMenu("Print debug info")]
     private void PrintDebugInfo()
     {
         Debug.Log("AIManager");
