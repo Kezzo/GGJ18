@@ -39,14 +39,12 @@ public class BlockLightUp : MonoBehaviour
     // Use this for initialization
     private void Start ()
 	{
-	    m_light.color = m_maxLitUpColor;
-        m_light.intensity = 5;
-        m_light.range = 0;
+	    m_light.color = m_minLitUpColor;
 
         m_materialPropertyBlock = new MaterialPropertyBlock();
 
         m_meshRenderer.GetPropertyBlock(m_materialPropertyBlock);
-        m_materialPropertyBlock.SetFloat("_Alpha", 0);
+        m_materialPropertyBlock.SetFloat("_GradientLerp", Mathf.Lerp(-1f, 2f, 0f));
         m_meshRenderer.SetPropertyBlock(m_materialPropertyBlock);
     }
 
@@ -78,10 +76,10 @@ public class BlockLightUp : MonoBehaviour
 
     private void UpdateBrightness()
     {
-        m_light.range = m_normalizedBrightness * 30;
+        m_light.color = Color.Lerp(m_minLitUpColor, m_maxLitUpColor, m_normalizedBrightness);
 
         m_meshRenderer.GetPropertyBlock(m_materialPropertyBlock);
-        m_materialPropertyBlock.SetFloat("_Alpha", m_dimDownCurve.Evaluate(m_normalizedBrightness));
+        m_materialPropertyBlock.SetFloat("_GradientLerp", Mathf.Lerp(-1f, 2f, m_normalizedBrightness));
         m_meshRenderer.SetPropertyBlock(m_materialPropertyBlock);
     }
 

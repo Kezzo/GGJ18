@@ -45,21 +45,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1804748113886486
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4822516273825702}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4318486186167616
 Transform:
   m_ObjectHideFlags: 1
@@ -73,19 +58,6 @@ Transform:
   m_Father: {fileID: 4913317671318378}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4822516273825702
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1804748113886486}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4913317671318378}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4913317671318378
 Transform:
   m_ObjectHideFlags: 1
@@ -93,11 +65,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096569583762008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.85, y: 4.87, z: 9.54}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -9.85, y: 1, z: 9.54}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4318486186167616}
-  - {fileID: 4822516273825702}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -151,9 +122,9 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.9843137, g: 1, b: 0, a: 1}
-  m_Intensity: 5
-  m_Range: 30
+  m_Color: {r: 0.9852941, g: 0.2100995, b: 0.56298673, a: 1}
+  m_Intensity: 3
+  m_Range: 15
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -189,14 +160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c280dc397eb89a247827c62ae21c0534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dimDownTimeInSeconds: 10
+  m_dimDownTimeInSeconds: 5
   m_flashUpTimeInSeconds: 0.25
   m_light: {fileID: 108216682512218228}
   m_meshRenderer: {fileID: 23506642410508758}
   m_meshFilter: {fileID: 33464896638797412}
   m_material: {fileID: 2100000, guid: b87732dc6b5575740aec923689621d54, type: 2}
-  m_maxLitUpColor: {r: 1, g: 0.68235296, b: 0, a: 1}
-  m_minLitUpColor: {r: 0, g: 0, b: 0, a: 1}
+  m_maxLitUpColor: {r: 1, g: 0.98143613, b: 0, a: 1}
+  m_minLitUpColor: {r: 0.9852941, g: 0.2100995, b: 0.56298673, a: 1}
   m_dimDownCurve:
     serializedVersion: 2
     m_Curve:
@@ -221,3 +192,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  m_normalizedBrightness: 0
