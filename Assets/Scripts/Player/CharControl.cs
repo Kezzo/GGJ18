@@ -1,16 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharControl : MonoBehaviour {
 
 	[Header("Character movement")]
-	[SerializeField] float characceleration;
-	[SerializeField] float maxSpeed;
+	[SerializeField]
+    float characceleration;
+	[SerializeField]
+    float maxSpeed;
 
 	[Header("Rigidbody movement type")]
-	[SerializeField] bool _impulse;
-	[SerializeField] bool _acceleration;
+	[SerializeField]
+    bool _impulse;
+	[SerializeField]
+    bool _acceleration;
 	private Rigidbody rb;
 
 	private float StartAcc;
