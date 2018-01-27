@@ -16,9 +16,19 @@ public class AgentMover : MonoBehaviour
     public OffMeshLinkMoveMethod m_Method = OffMeshLinkMoveMethod.Parabola;
     public AnimationCurve m_Curve = new AnimationCurve();
 
+    public bool ArrivedToDest
+    {
+        get
+        {
+            return transform.position != endPos;
+        }
+    }
+
+    private Vector3 endPos;
+
     IEnumerator Start()
     {
-       var agent = GetComponent<NavMeshAgent>();
+        var agent = GetComponent<NavMeshAgent>();
         agent.autoTraverseOffMeshLink = false;
 
         while (true)
@@ -43,7 +53,10 @@ public class AgentMover : MonoBehaviour
     IEnumerator NormalSpeed(NavMeshAgent agent)
     {
         OffMeshLinkData data = agent.currentOffMeshLinkData;
-        Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+        endPos = data.endPos + Vector3.up * agent.baseOffset;
+
+        Debug.Log(endPos);
+
         while (agent.transform.position != endPos)
         {
             agent.transform.position = Vector3.MoveTowards(agent.transform.position, endPos, agent.speed * Time.deltaTime);
@@ -55,7 +68,7 @@ public class AgentMover : MonoBehaviour
     {
         OffMeshLinkData data = agent.currentOffMeshLinkData;
         Vector3 startPos = agent.transform.position;
-        Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+        endPos = data.endPos + Vector3.up * agent.baseOffset;
         float normalizedTime = 0.0f;
         while (normalizedTime < 1.0f)
         {
@@ -70,7 +83,7 @@ public class AgentMover : MonoBehaviour
     {
         OffMeshLinkData data = agent.currentOffMeshLinkData;
         Vector3 startPos = agent.transform.position;
-        Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;
+        endPos = data.endPos + Vector3.up * agent.baseOffset;
         float normalizedTime = 0.0f;
         while (normalizedTime < 1.0f)
         {
