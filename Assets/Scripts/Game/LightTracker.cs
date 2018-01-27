@@ -2,17 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LightTracker : MonoBehaviour {
 	public List<GameObject> transmitters = new List<GameObject>();
 
 	[Header("Starting transmitter")]
 	[SerializeField] GameObject startTransmitter;
+	[SerializeField] Text scoreCounter;
+	[SerializeField] Text lightCounter;
 
 	[Header("Start delay")]
 	[SerializeField] float waitTime;
 	private BlockLightUp block;
 	private float lightvalue;
+	private float lightcount;
 	public bool isChecking;
 
 	private GameController gc;
@@ -34,13 +38,15 @@ public class LightTracker : MonoBehaviour {
 	}
 
 	void CheckLights(){
-		lightvalue = 0;
+		lightcount = 0;
 		foreach(GameObject transmitter in transmitters){
 			block = transmitter.transform.GetComponent<BlockLightUp>();
-			lightvalue += block.ActivationValue;
+			lightCounter.text = lightcount.ToString();
+			if(block.blockActive()){
+				lightcount++;
+			}
 		}
-		Debug.Log(lightvalue);
-		if(lightvalue == 0){
+		if(lightcount == 0){
 			gc.GameOver = true;
 		}
 	}
@@ -54,5 +60,4 @@ public class LightTracker : MonoBehaviour {
 		yield return new WaitForSeconds(0.5f);
 		isChecking = true;
 	}
-
 }

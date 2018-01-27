@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using UnityEngine.Events;
 
 
 
@@ -69,6 +69,16 @@ public class BlockLightUp : MonoBehaviour
         Dissolving = 4,
         Dissolved = 5,
         Solidifying = 6
+    }
+
+    public bool blockActive(){
+        return m_currentState == State.Activating ||
+                m_currentState == State.Activate || 
+                m_currentState == State.DimmingDown;
+    }
+
+    public bool blockActivatable(){
+        return m_currentState == State.Activateable;
     }
 
     [SerializeField]
@@ -208,5 +218,6 @@ public class BlockLightUp : MonoBehaviour
 
         return foundStateDuration != null ? foundStateDuration.m_DurationInSeconds : 0f;
     }
+
 }
 
