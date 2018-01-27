@@ -40,16 +40,11 @@ public class LightTracker : MonoBehaviour {
 	void CheckLights(){
 		lightcount = 0;
 		foreach(GameObject transmitter in transmitters){
-<<<<<<< HEAD
-			block = transmitter.transform.GetComponent<BlockLightUp>();
+			m_lightUpBlock = transmitter.transform.GetComponent<LightUpBlock>();
 			lightCounter.text = lightcount.ToString();
-			if(block.blockActive()){
+			if(m_lightUpBlock.blockActive()){
 				lightcount++;
 			}
-=======
-			m_lightUpBlock = transmitter.transform.GetComponent<LightUpBlock>();
-			lightvalue += m_lightUpBlock.ActivationValue;
->>>>>>> 520c8f89c90b75cf4fef8308ae08ce32e828b889
 		}
 		if(lightcount == 0){
 			gc.GameOver = true;

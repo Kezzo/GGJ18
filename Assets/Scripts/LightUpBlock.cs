@@ -1,14 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-<<<<<<< HEAD:Assets/Scripts/BlockLightUp.cs
-using UnityEngine.Events;
-
-
-
-
-
-=======
->>>>>>> 520c8f89c90b75cf4fef8308ae08ce32e828b889:Assets/Scripts/LightUpBlock.cs
 using UnityEngine;
 
 public class LightUpBlock : MonoBehaviour
@@ -261,15 +252,5 @@ public class LightUpBlock : MonoBehaviour
         return foundStateDuration != null ? foundStateDuration.m_DurationInSeconds : 0f;
     }
 
-<<<<<<< HEAD:Assets/Scripts/BlockLightUp.cs
-=======
-    /// <summary>
-    /// Called by animation.
-    /// </summary>
-    public void Hidden()
-    {
-        m_currentState = State.MovingToNewLocation;
-    }
->>>>>>> 520c8f89c90b75cf4fef8308ae08ce32e828b889:Assets/Scripts/LightUpBlock.cs
 }
 
