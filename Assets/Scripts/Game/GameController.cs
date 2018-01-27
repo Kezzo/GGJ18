@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour {
 		gameover.SetActive(false);
 		GetComponents();
 		UIText.GetComponent<Fade>().SetVisibility(true);
-		ScoreText.text = score.ToString();
+		ScoreText.text = ""+score.ToString("000");
 	}
 
 	void Update(){
@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour {
 
 	public void AddScore(){
 		score++;
-		ScoreText.text = score.ToString();
+		ScoreText.text = ""+score.ToString("000");
 	}
 
 }
