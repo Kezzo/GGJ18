@@ -164,7 +164,9 @@ public class LightUpBlock : MonoBehaviour
 
             case State.MovingToNewLocation:
 
+            if(LightCubeLocationOrchestrator.Instance != null){
                 LightCubeLocationOrchestrator.Instance.SetToRandomVacantLocation(this);
+            }
                 m_currentState = State.Appearing;
 
                 break;
@@ -252,5 +254,12 @@ public class LightUpBlock : MonoBehaviour
         return foundStateDuration != null ? foundStateDuration.m_DurationInSeconds : 0f;
     }
 
+    /// <summary>
+    /// Called by animation.
+    /// </summary>
+    public void Hidden()
+    {
+        m_currentState = State.MovingToNewLocation;
+    }
 }
 
