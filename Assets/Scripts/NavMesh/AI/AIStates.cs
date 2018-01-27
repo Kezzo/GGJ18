@@ -1,66 +1,180 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+using System;
 
 public static class AIStates
 {
-    public static IEnumerator WanderingState(
-        Vector3 aroundPosition, 
-        float wanderingDirectionChangePeriod,
-        float wanderingDistance,
-        float wanderingSpeed,
-        NavMeshAgent agent
-    )
+    public interface State
     {
-        agent.destination = aroundPosition;
+        IEnumerator Enter();
+        void Exit();
+    }
 
-        float lastTime = Time.time;
+    [Serializable]
+    public class WanderingState : State
+    {
+        public Vector3 aroundPosition;
+        private float wanderingDirectionChangePeriod;
+        private float wanderingDistance;
+        private float wanderingSpeed;
+        private NavMeshAgent agent;
 
-        while (true)
+        public WanderingState(
+            Vector3 aroundPosition,
+            float wanderingDirectionChangePeriod,
+            float wanderingDistance,
+            float wanderingSpeed,
+            NavMeshAgent agent)
         {
-            // One it reaches the previous destination, search for another randome place wehre to go
-            if (Mathf.Abs(Time.time - lastTime) > wanderingDirectionChangePeriod)
+            this.aroundPosition = aroundPosition;
+            this.wanderingDirectionChangePeriod = wanderingDirectionChangePeriod;
+            this.wanderingDistance = wanderingDistance;
+            this.wanderingSpeed = wanderingSpeed;
+            this.agent = agent;
+        }
+
+        public IEnumerator Enter()
+        {
+            agent.destination = aroundPosition;
+
+            float lastTime = Time.time;
+
+            while (true)
             {
-                lastTime = Time.time;
+                // One it reaches the previous destination, search for another randome place wehre to go
+                if (Mathf.Abs(Time.time - lastTime) > wanderingDirectionChangePeriod)
+                {
+                    lastTime = Time.time;
 
-                var delta = Random.rotation * Vector3.right * wanderingDistance;
+                    var delta = UnityEngine.Random.rotation * Vector3.right * wanderingDistance;
 
-                agent.speed = wanderingSpeed;
-                agent.destination = aroundPosition + delta;
+                    agent.speed = wanderingSpeed;
+                    agent.destination = aroundPosition + delta;
+                }
+
+                yield return null;
             }
+        }
 
-            yield return null;
+        public void Exit()
+        {
         }
     }
 
-    public static IEnumerator BlockState(
-        float distanceThreadshold,
-        Transform target,
-        NavMeshAgent enemyAgent,
-        NavMeshAgent playerAgent
-    )
+    [Serializable]
+    public class BlockState : State
     {
-        while (true)
+        public Transform target;
+        private float distanceThreadshold;
+        private NavMeshAgent agent;
+
+        public BlockState(
+            float distanceThreadshold,
+            Transform target,
+            NavMeshAgent agent
+        )
         {
-            var distance =
-                (target.transform.position - playerAgent.transform.position).sqrMagnitude;
+            this.distanceThreadshold = distanceThreadshold;
+            this.target = target;
+            this.agent = agent;
+        }
 
-            // Tries to get in between the target and the player
-            if (distance < distanceThreadshold * distanceThreadshold)
+        public IEnumerator Enter()
+        {
+            agent.updateRotation = false;
+
+            var playerAgent = PlayerAgent.instance;
+
+            // Set the animator of the character as blocking
+            var animator = agent.GetComponentInChildren<Animator>();
+            if (animator != null)
             {
-                enemyAgent.destination = Vector3.Lerp(
-                    target.transform.position,
-                    playerAgent.transform.position, 0.5f);
+                animator.SetBool("Blocking", true);
             }
-            else
+
+            while (true)
             {
-                var direction = playerAgent.transform.position - target.transform.position;
+                var distance =
+                    (target.transform.position - playerAgent.transform.position).sqrMagnitude;
 
-                enemyAgent.destination =
-                    target.transform.position + direction.normalized * distanceThreadshold;
+                // Rotate facing the player
+                var relativePos = playerAgent.transform.position - agent.transform.position;
+                var rotation = Quaternion.LookRotation(relativePos);
+                agent.transform.rotation = rotation;
+
+                // Tries to get in between the target and the player
+                if (distance < distanceThreadshold * distanceThreadshold)
+                {
+                    agent.destination = Vector3.Lerp(
+                        target.transform.position,
+                        playerAgent.transform.position, 0.5f);
+                }
+                else
+                {
+                    var direction = playerAgent.transform.position - target.transform.position;
+
+                    agent.destination =
+                        target.transform.position + direction.normalized * distanceThreadshold;
+                }
+
+                yield return null;
             }
+        }
 
-            yield return null;
+        public void Exit()
+        {
+            agent.updateRotation = true;
+
+            // Set the animator of the character as blocking
+            var animator = agent.GetComponentInChildren<Animator>();
+            if (animator != null)
+            {
+                animator.SetBool("Blocking", false);
+            }
+        }
+    }
+
+    public class NextLightState : State
+    {
+        private AIAgent aiagent;
+        private NavMeshAgent agent;
+        private AIManager aimanager;
+
+        public NextLightState(
+            AIAgent aiagent,
+            NavMeshAgent agent,
+            AIManager aimanager
+        )
+        {
+            this.aiagent = aiagent;
+            this.agent = agent;
+            this.aimanager = aimanager;
+        }
+
+        public IEnumerator Enter()
+        {
+            agent.destination = agent.transform.position;
+
+            while (true)
+            {
+                var newGate = aimanager.AssignMeAGate(aiagent);
+                agent.destination = newGate.transform.position;
+
+                while (agent.destination.XZ() != agent.transform.position.XZ())
+                {
+                    yield return null;
+                }
+
+                yield return new WaitForSeconds(.5f);
+
+                aimanager.ReturnAGate(aiagent);
+            }
+        }
+
+        public void Exit()
+        {
+            aimanager.ReturnAGate(aiagent);
         }
     }
 }
