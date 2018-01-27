@@ -42,7 +42,12 @@ public class BlockLightUp : MonoBehaviour
 	    m_light.color = m_maxLitUpColor;
         m_light.intensity = 5;
         m_light.range = 0;
-        m_material.SetFloat("_Alpha", 0);
+
+        m_materialPropertyBlock = new MaterialPropertyBlock();
+
+        m_meshRenderer.GetPropertyBlock(m_materialPropertyBlock);
+        m_materialPropertyBlock.SetFloat("_Alpha", 0);
+        m_meshRenderer.SetPropertyBlock(m_materialPropertyBlock);
     }
 
     // Update is called once per frame
@@ -69,20 +74,15 @@ public class BlockLightUp : MonoBehaviour
         }
 
         UpdateBrightness();
-
-        //for (int i = 0; i < m_meshFilter.mesh.colors.Length; i++)
-        //{
-        //    m_meshFilter.mesh.colors[i].a = Random.value;
-        //}
-        
     }
 
     private void UpdateBrightness()
     {
-        Color colorThisFrame = Color.Lerp(m_minLitUpColor, m_maxLitUpColor, m_normalizedBrightness);
-
         m_light.range = m_normalizedBrightness * 30;
-        m_material.SetFloat("_Alpha", m_dimDownCurve.Evaluate(m_normalizedBrightness));
+
+        m_meshRenderer.GetPropertyBlock(m_materialPropertyBlock);
+        m_materialPropertyBlock.SetFloat("_Alpha", m_dimDownCurve.Evaluate(m_normalizedBrightness));
+        m_meshRenderer.SetPropertyBlock(m_materialPropertyBlock);
     }
 
     public void LightUp()
