@@ -9,21 +9,21 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1356021096980446}
+  m_RootGameObject: {fileID: 1126069167279024}
   m_IsPrefabParent: 1
---- !u!1 &1356021096980446
+--- !u!1 &1126069167279024
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4203781815988710}
-  - component: {fileID: 33151144112422814}
-  - component: {fileID: 136506115457588956}
-  - component: {fileID: 23773648089905052}
-  - component: {fileID: 195124149098820530}
-  - component: {fileID: 114402551338139854}
+  - component: {fileID: 4352796834300974}
+  - component: {fileID: 33966821255624448}
+  - component: {fileID: 136168748962704028}
+  - component: {fileID: 23775371479119490}
+  - component: {fileID: 195102046395537724}
+  - component: {fileID: 114379331234627744}
   m_Layer: 9
   m_Name: AIAgent
   m_TagString: Player
@@ -31,25 +31,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4203781815988710
+--- !u!4 &4352796834300974
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356021096980446}
+  m_GameObject: {fileID: 1126069167279024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.61, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23773648089905052
+--- !u!23 &23775371479119490
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356021096980446}
+  m_GameObject: {fileID: 1126069167279024}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -78,35 +78,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33151144112422814
+--- !u!33 &33966821255624448
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356021096980446}
+  m_GameObject: {fileID: 1126069167279024}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114402551338139854
+--- !u!114 &114379331234627744
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356021096980446}
+  m_GameObject: {fileID: 1126069167279024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c9028e86676485e86f319389178b55, type: 3}
+  m_Script: {fileID: 11500000, guid: 72ecb5cc9d17a4d13a56095a194ff952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 195124149098820530}
-  playerAgent: {fileID: 0}
+  enemyAgent: {fileID: 195102046395537724}
   wanderingSpeed: 4
   wanderingDistance: 4
   wanderingDirectionChangePeriod: 1
---- !u!136 &136506115457588956
+--- !u!136 &136168748962704028
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356021096980446}
+  m_GameObject: {fileID: 1126069167279024}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -114,12 +113,12 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &195124149098820530
+--- !u!195 &195102046395537724
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356021096980446}
+  m_GameObject: {fileID: 1126069167279024}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5

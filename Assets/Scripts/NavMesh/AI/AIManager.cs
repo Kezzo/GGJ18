@@ -26,7 +26,6 @@ public class AIManager : MonoBehaviour
 
         while (true)
         {
-            //AssignEnemiesToGates();
 
             yield return new WaitForSeconds(enemyToGateInterval);
         }
@@ -36,24 +35,6 @@ public class AIManager : MonoBehaviour
     {
         enemies.Add(instance);
         instance.Init(this);
-    }
-
-
-    private void AssignEnemiesToGates()
-    {
-        var tiles = mapManager
-            .Tiles
-            .Randomize()
-            .Take(enemies.Count)
-            .GetEnumerator();
-
-        foreach (var enemy in enemies)
-        {
-            if (tiles.MoveNext())
-            {
-                enemy.GoTo(tiles.Current.gameObject);
-            }
-        }
     }
 
     public Gate AssignMeAGate(AIAgent agent)
