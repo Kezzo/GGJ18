@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using PathFinding;
+using System.Linq;
 using System.Collections.Generic;
 
 [DefaultExecutionOrder(-200)]
@@ -27,11 +28,23 @@ public class MapManager : MonoBehaviour
 
     private Dictionary<Point, MapTile> tileInstances = new Dictionary<Point, MapTile>();
 
-    public IEnumerable<MapTile> GetTiles
+    public IEnumerable<MapTile> Tiles
     {
         get
         {
             return tileInstances.Values;
+        }
+    }
+
+    public IEnumerable<Gate> Gates
+    {
+        get
+        {
+            return
+                from tile in Tiles
+                from gate in tile.Gates
+                where gate != null
+                select gate;
         }
     }
 

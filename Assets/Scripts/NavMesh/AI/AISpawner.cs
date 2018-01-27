@@ -3,7 +3,10 @@ using UnityEngine;
 
 public sealed class AISpawner : MonoBehaviour
 {
-    public enum Behaviour { Random }
+    public enum Behaviour
+    { 
+        Random = 0,
+    }
 
     #region in scene fields
 
@@ -30,7 +33,7 @@ public sealed class AISpawner : MonoBehaviour
     private void Awake()
     {
         var randomTiles = mapManager
-            .GetTiles
+            .Tiles
             .Randomize()
             .GetEnumerator();
 
@@ -48,6 +51,6 @@ public sealed class AISpawner : MonoBehaviour
         }
 
         // Disable the prefab so is not visible anymore
-        enemyPrefab.gameObject.SetActive(true);
+        enemyPrefab.gameObject.SetActive(false);
     }
 }
