@@ -13,7 +13,8 @@ public class LightTracker : MonoBehaviour {
 	[SerializeField] float waitTime;
 	private BlockLightUp block;
 	private float lightvalue;
-	private bool gameStart;
+
+	private GameController gc;
 
 	void Awake(){
 		if(transmitters.Count.Equals(0)){
@@ -21,12 +22,16 @@ public class LightTracker : MonoBehaviour {
 				transmitters.Add(transmitter);
 			}
 		}
-		StartCoroutine(startLight(waitTime));
+		gc = gameObject.GetComponent<GameController>();
 	}
 
 
     void Update(){
-		if(gameStart){ CheckLights() ; }
+		if(gc.GameStarted){ 
+			CheckLights(); 
+		} else {
+			Debug.Log("Game not started");
+		}
 	}
 
 	void CheckLights(){
@@ -42,11 +47,10 @@ public class LightTracker : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator startLight(float waitTime)
+	public void FirstLight()
     {
-		yield return new WaitForSeconds(waitTime);
 		startTransmitter.GetComponent<BlockLightUp>().LightUp();
-		Debug.Log("Game starting");
-		gameStart = true;
     }
+
+
 }
