@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public sealed class AISpawner : MonoBehaviour
 {
+    public enum Behaviour { Random }
+
     #region in scene fields
 
     [SerializeField]
@@ -13,21 +14,40 @@ public sealed class AISpawner : MonoBehaviour
     private AIAgent enemyPrefab;
 
     [SerializeField]
+    private MapManager mapManager;
+
+    [SerializeField]
     private AIManager aiManager;
 
     [SerializeField]
     private Transform enemyContainer;
 
+    [SerializeField]
+    private Behaviour behaviour;
+
     #endregion
 
     private void Awake()
     {
-        
+        var randomTiles = mapManager
+            .GetTiles
+            .Randomize()
+            .GetEnumerator();
+
         for (int i = 0; i < numberOfEnemies; i++)
         {
-            var instance = Instantiate(enemyPrefab, enemyContainer);
+            if (randomTiles.MoveNext())
+            {
+                var position = randomTiles.Current.transform.position;
+                position.y = transform.position.y;
 
-            aiManager.AddEnemy(instance);
+                var instance = Instantiate(enemyPrefab, position, Quaternion.identity, enemyContainer);
+                instance.gameObject.SetActive(true);
+                aiManager.AddEnemy(instance);
+            }
         }
+
+        // Disable the prefab so is not visible anymore
+        enemyPrefab.gameObject.SetActive(true);
     }
 }

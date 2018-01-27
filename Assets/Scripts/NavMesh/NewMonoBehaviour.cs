@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class NewMonoBehaviour : MonoBehaviour
+public class RandomSpawnBehaviour : MonoBehaviour
 {
 	// Use this for initialization
 	void Start()
