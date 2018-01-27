@@ -13,10 +13,16 @@ public class CharControl : MonoBehaviour {
 	[SerializeField] bool _acceleration;
 	private Rigidbody rb;
 
+	private float StartAcc;
+	private float StartMaxSpeed;
+
 	void Awake(){
 		if(rb == null){
 			rb = GetComponent<Rigidbody>();
 		}
+
+		StartAcc = characceleration;
+		StartMaxSpeed = maxSpeed;
 
 		if(_impulse){
 			_acceleration = false;
@@ -36,7 +42,7 @@ public class CharControl : MonoBehaviour {
 		if(_impulse){
 			rb.AddForce(charmovement * maxSpeed, ForceMode.Impulse);
 		} else if (_acceleration){
-			rb.AddForce(charmovement * characceleration, ForceMode.Acceleration);
+			rb.AddForce(charmovement * characceleration * 2, ForceMode.Acceleration);
 		}
 
 		rb.drag = characceleration / maxSpeed;
@@ -45,8 +51,35 @@ public class CharControl : MonoBehaviour {
 			rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
          }
 
-		Debug.Log(rb.velocity.magnitude);
+		 if(Input.GetKeyDown(KeyCode.F1)){
+			 Impulse();
+		 }
+		 if(Input.GetKeyDown(KeyCode.F2)){
+			 Acceleration();
+		 }
 
+	}
+
+	private void Impulse(){
+		if(_impulse){
+			return;
+		} else {
+			_impulse = true;
+			_acceleration = false;
+			characceleration = StartAcc;
+			maxSpeed = StartMaxSpeed;
+		}
+	}
+
+	private void Acceleration(){
+		if(_acceleration){
+			return;
+		} else {
+			_acceleration = true;
+			_impulse = false;
+			characceleration = characceleration + 50;
+			maxSpeed = maxSpeed + 2;
+		}
 	}
 
 }
