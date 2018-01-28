@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] AudioSource musicSource;
 
     private bool m_inputActive;
+    private bool m_aboutIsActive;
+
+    private float m_lastAboutSwitch = 0f;
 
 	void Start(){
 		menu.SetActive(false);
@@ -58,27 +61,40 @@ public class MainMenu : MonoBehaviour
             return;
         }
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (!m_aboutIsActive)
         {
-            PlaySound(select);
-            m_animator.SetBool("IsRightActive", true);
-        }
-        else if (Input.GetAxis("Horizontal") < 0)
-        {
-            PlaySound(select);
-            m_animator.SetBool("IsRightActive", false);
+            if (Input.GetAxis("Horizontal") > 0 && !m_animator.GetBool("IsRightActive"))
+            {
+                PlaySound(select);
+                m_animator.SetBool("IsRightActive", true);
+            }
+            else if (Input.GetAxis("Horizontal") < 0 && m_animator.GetBool("IsRightActive"))
+            {
+                PlaySound(select);
+                m_animator.SetBool("IsRightActive", false);
+            }
         }
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && (Time.time - m_lastAboutSwitch) >= 1)
         {
-            if (!m_animator.GetBool("IsRightActive"))
+            if (m_aboutIsActive)
             {
-                PlayGame();
-                m_inputActive = false;
+                Back();
+                m_aboutIsActive = false;
+                m_lastAboutSwitch = Time.time;
             }
             else
             {
-                AboutMenu();
+                if (!m_animator.GetBool("IsRightActive"))
+                {
+                    PlayGame();
+                    m_inputActive = false;
+                }
+                else
+                {
+                    AboutMenu();
+                    m_lastAboutSwitch = Time.time;
+                }
             }
         }
     }
@@ -92,6 +108,8 @@ public class MainMenu : MonoBehaviour
         PlaySound(pick);
         main.SetActive(false);
         about.SetActive(true);
+
+	    m_aboutIsActive = true;
 	}
 
 	public void Back(){
