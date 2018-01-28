@@ -2,22 +2,29 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIBlocker : MonoBehaviour 
+public class AIWandering : MonoBehaviour
 {
     public NavMeshAgent enemyAgent;
-    public NavMeshAgent playerAgent;
-    public Transform target;
 
-    public float distanceThreadshold;
+    #region wandering parameters
+    [SerializeField]
+    private float wanderingSpeed = 4;
+    [SerializeField]
+    private float wanderingDistance = 1;
+    [SerializeField]
+    private float wanderingDirectionChangePeriod = 1;
+    #endregion
 
-    IEnumerator Start () 
+    IEnumerator Start()
     {
-        StartCoroutine(AIStates.BlockState(
-            distanceThreadshold, 
-            target,
-            enemyAgent,
-            playerAgent
-            ));
+        var wanderingState = new AIStates.WanderingState(
+            enemyAgent.transform.position,
+            wanderingDirectionChangePeriod,
+            wanderingDistance,
+            wanderingSpeed,
+            enemyAgent);
+        
+        StartCoroutine(wanderingState.Enter());
 
         yield break;
     }

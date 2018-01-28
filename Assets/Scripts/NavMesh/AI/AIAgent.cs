@@ -1,8 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Collections;
 
-[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class AIAgent : MonoBehaviour
 {
     #region in scene fields
@@ -16,5 +16,9 @@ public class AIAgent : MonoBehaviour
     public virtual void Init(AIManager aIManager)
     {
         this.aIManager = aIManager;
+    }
+
+    public virtual void AssignedLight(Gate selectedGate)
+    {
     }
 }

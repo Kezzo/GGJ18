@@ -55,8 +55,6 @@ public class AgentMover : MonoBehaviour
         OffMeshLinkData data = agent.currentOffMeshLinkData;
         endPos = data.endPos + Vector3.up * agent.baseOffset;
 
-        Debug.Log(endPos);
-
         while (agent.transform.position != endPos)
         {
             agent.transform.position = Vector3.MoveTowards(agent.transform.position, endPos, agent.speed * Time.deltaTime);

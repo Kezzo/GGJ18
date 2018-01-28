@@ -320,14 +320,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195923856658045664, guid: b43fe3592402040b292fde3e9776ed02,
-        type: 2}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b43fe3592402040b292fde3e9776ed02, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &233960945 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114453063165165952, guid: b43fe3592402040b292fde3e9776ed02,
+    type: 2}
+  m_PrefabInternal: {fileID: 233960944}
+  m_Script: {fileID: 11500000, guid: 57cc61055fc5049cc8bf19e1c3bfbe9d, type: 3}
 --- !u!1 &241638359
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 643401655}
   - component: {fileID: 643401654}
+  - component: {fileID: 643401656}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -596,9 +598,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56d911659e3c4b499e11b47a73a4dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 6
-  spacing: 4
+  numTilesX: 6
+  numTilesY: 6
+  tileSizeX: 4
+  tileSizeY: 4
   tileContainer: {fileID: 643401655}
   tiles: {fileID: 241638360}
 --- !u!4 &643401655
@@ -615,6 +618,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &643401656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 643401653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f402fc96a635499582b830180ba3a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileManager: {fileID: 643401654}
 --- !u!1001 &725171884
 Prefab:
   m_ObjectHideFlags: 0
@@ -1029,8 +1044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfEnemies: 5
-  enemyPrefab: {fileID: 1545643804}
-  mapManager: {fileID: 643401654}
+  enemyPrefab: {fileID: 233960945}
+  mapManager: {fileID: 643401656}
   aiManager: {fileID: 1346833879}
   enemyContainer: {fileID: 1346833880}
   behaviour: 0
@@ -1045,7 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6698a34706b143c38c501151f21986b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapManager: {fileID: 643401654}
+  mapManager: {fileID: 643401656}
   enemyToGateInterval: 5
 --- !u!4 &1346833880
 Transform:
@@ -1249,12 +1264,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1504096541}
   m_Script: {fileID: 11500000, guid: 123ab7ac7e2504fd9a15020c019713f7, type: 3}
---- !u!114 &1545643804 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114542674480598900, guid: b43fe3592402040b292fde3e9776ed02,
-    type: 2}
-  m_PrefabInternal: {fileID: 233960944}
-  m_Script: {fileID: 11500000, guid: b3d54e41f356249548b3d67e3c0672fc, type: 3}
 --- !u!4 &1545643808 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4714589829949344, guid: b43fe3592402040b292fde3e9776ed02,

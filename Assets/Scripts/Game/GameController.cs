@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
 			endScore = score;
 			if(endScore > bestScore){
 				bestScore = endScore;
+				PlayerPrefs.SetFloat ("highscore", bestScore);
 			}
 			StartCoroutine(GameoverText());
 		}

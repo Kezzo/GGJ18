@@ -48,6 +48,8 @@ public class GridManager : MonoBehaviour
         }
 
         prefabItem.gameObject.SetActive(false);
+
+        Render();
     }
 
     [ContextMenu("Render")]
@@ -67,8 +69,6 @@ public class GridManager : MonoBehaviour
             {
                 throw new Exception("WTF!");
             }
-
-            Debug.Log(node);
 
             item.SetColor(GridItem.Selected.Path);
         }
