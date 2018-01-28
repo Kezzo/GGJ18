@@ -35,10 +35,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update(){
-		if(!GameStarted){
+		if(!GameStarted)
+        {
 			StartInput();
 		}
-		if(GameOver){
+		if(GameOver)
+        {
 			Blackscreen.GetComponent<Fade>().SetVisibility(true);
 			endScore = score;
 			if(endScore > bestScore){
@@ -59,6 +61,11 @@ public class GameController : MonoBehaviour {
 			gameUI.SetActive(true);
 			lt.FirstLight();
 			StartCoroutine(lt.StartChecking());
+
+		    if (CharControl.Instance != null)
+		    {
+		        CharControl.Instance.AllowInput = true;
+		    }
 		}
 	}
 
