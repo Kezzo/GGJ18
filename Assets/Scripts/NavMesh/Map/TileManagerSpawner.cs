@@ -41,6 +41,8 @@ public class TileManagerSpawner : TileManagerBase
 
     void Awake()
     {
+        Random.InitState(23431);
+
         var map = RandomizedTileIndexes(numTilesX, numTilesY);
 
         // Instantiate the tiles

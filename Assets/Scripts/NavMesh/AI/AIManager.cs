@@ -7,29 +7,15 @@ using UnityEngine;
 public class AIManager : MonoBehaviour
 {
     #region in scene fields
-
     [SerializeField]
     private MapManager mapManager;
-
     [SerializeField]
     private float enemyToGateInterval;
-
     #endregion
 
     private List<AIAgent> enemies = new List<AIAgent>();
     private List<Gate> targetedGates = new List<Gate>();
     private Dictionary<AIAgent, Gate> targetedGatesByUnit = new Dictionary<AIAgent, Gate>();
-
-    private IEnumerator Start()
-    {
-        yield return null;
-
-        while (true)
-        {
-
-            yield return new WaitForSeconds(enemyToGateInterval);
-        }
-    }
 
     public void AddEnemy(AIAgent instance)
     {

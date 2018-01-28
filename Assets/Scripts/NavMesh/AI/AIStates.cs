@@ -164,11 +164,14 @@ public static class AIStates
             while (true)
             {
                 var newGate = aimanager.AssignMeAGate(aiagent);
-                agent.destination = newGate.transform.position;
-
-                while (agent.destination.XZ() != agent.transform.position.XZ())
+                if (newGate == null)
                 {
-                    yield return null;
+                    agent.destination = newGate.transform.position;
+
+                    while (agent.destination.XZ() != agent.transform.position.XZ())
+                    {
+                        yield return null;
+                    }
                 }
 
                 yield return new WaitForSeconds(.5f);
