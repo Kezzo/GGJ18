@@ -18,8 +18,16 @@ public class CharControl : MonoBehaviour {
 	private float StartAcc;
 	private float StartMaxSpeed;
 
-	void Awake(){
-		if(rb == null){
+    public bool AllowInput = false;
+
+    public static CharControl Instance { get; private set; }
+
+	void Awake()
+	{
+	    Instance = this;
+
+        if (rb == null)
+        {
 			rb = GetComponent<Rigidbody>();
 		}
 
@@ -35,7 +43,13 @@ public class CharControl : MonoBehaviour {
 		}
 	}
 	
-	void Update () {
+	void Update ()
+    {
+	    if (!AllowInput)
+	    {
+	        return;
+	    }
+
 		float moveHorizontal = Input.GetAxis("Horizontal");
 		float moveVertical = Input.GetAxis("Vertical");
 
@@ -62,7 +76,8 @@ public class CharControl : MonoBehaviour {
 
 	}
 
-	private void Impulse(){
+	private void Impulse()
+    {
 		if(_impulse){
 			return;
 		} else {
@@ -73,7 +88,8 @@ public class CharControl : MonoBehaviour {
 		}
 	}
 
-	private void Acceleration(){
+	private void Acceleration()
+    {
 		if(_acceleration){
 			return;
 		} else {
