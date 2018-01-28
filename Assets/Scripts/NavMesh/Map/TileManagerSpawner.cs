@@ -1,11 +1,8 @@
 using UnityEngine;
-
-using PathFinding;
-using System.Linq;
 using System.Collections.Generic;
 
 [DefaultExecutionOrder(-200)]
-public class TileManagerSpawner : TileManagerBase
+public class TileManagerSpawner : MapManager
 {
     #region fields in the scene
 

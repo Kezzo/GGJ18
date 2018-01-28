@@ -1,25 +1,36 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : MonoBehaviour
+public abstract class MapManager : MonoBehaviour
 {
-    [SerializeField]
-    private TileManagerBase tileManager;
+    public abstract IEnumerable<MapTile> Tiles
+    {
+        get;
+    }
 
-    public IEnumerable<Gate> Gates
+    public virtual IEnumerable<MapGate> Gates
     {
         get
         {
-            return tileManager.Gates;
+            return
+                from tile in Tiles
+                from gate in tile.Gates
+                where gate != null
+                select gate;
         }
     }
 
-    public IEnumerable<MapTile> Tiles
+    // Since we are not using anymore the gates use the 
+    public virtual IEnumerable<MapItem> Lights
     {
         get
         {
-            return tileManager.Tiles;
+            return
+                from tile in Tiles
+                from light in tile.Lights
+                where light != null
+                select light;
         }
     }
 }
