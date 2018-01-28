@@ -190,6 +190,11 @@ Prefab:
       propertyPath: m_Height
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114005215837115708, guid: bbece7ae2a91945fcafec62f9568b478,
+        type: 2}
+      propertyPath: AllowInput
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbece7ae2a91945fcafec62f9568b478, type: 2}
   m_IsPrefabParent: 0
