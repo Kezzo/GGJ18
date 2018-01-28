@@ -32,7 +32,6 @@ public class AIFullAgent : AIAgent
 
     #region private fields
     private State state = State.Idle;
-    private GameObject lastLight;
     private Coroutine lastCoroutine;
     private float lastStateChange;
     #endregion
@@ -68,6 +67,8 @@ public class AIFullAgent : AIAgent
             var newState = state;
             try
             {
+                var lastLight = nextLightState.light;
+
                 // Evaluate conditions to change the behaviour
                 {
                     // If the enemy is close to the previous light and to the player then jump into blocker mode
@@ -176,10 +177,5 @@ public class AIFullAgent : AIAgent
 
             yield return null;
         }
-    }
-
-    public override void AssignedLight(Gate selectedGate)
-    {
-        lastLight = selectedGate.gameObject;
     }
 }

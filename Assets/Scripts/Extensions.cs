@@ -25,4 +25,17 @@ public static class Extensions
         System.Random rnd = new System.Random();
         return source.OrderBy((item) => rnd.Next());
     }
+
+    public static T GetOrAddComponent<T>(this Component component) where T : Component
+    {
+        var newComponent = component.GetComponent<T>();
+        if (newComponent == null)
+        {
+            return component.gameObject.AddComponent<T>();
+        }
+        else
+        {
+            return newComponent;
+        }
+    }
 }

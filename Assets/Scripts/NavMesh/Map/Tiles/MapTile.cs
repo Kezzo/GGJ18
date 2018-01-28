@@ -11,19 +11,15 @@ public sealed class MapTile : MonoBehaviour
     [SerializeField]
     private List<MapLight> lights;
 
-    // TODO: Make this class a little bit prettier
     private void Awake()
     {
-        foreach (var light in GetComponentsInChildren<LightUpBlock>())
-        {
-            var lightBhv = light.GetComponent<MapLight>();
-            if (lightBhv == null)
-            {
-                lightBhv = light.gameObject.AddComponent<MapLight>();
-            }
+        lights.AddRange(
+            from light in GetComponentsInChildren<LightUpBlock>()
+            let lightBhv = light.GetOrAddComponent<MapLight>()
+            select lightBhv);
 
-            lights.Add(lightBhv);
-        }
+        // Make sure that we have a single instance in the list
+        lights = lights.Distinct().ToList();
     }
 
     public IEnumerable<MapGate> Gates
@@ -34,6 +30,7 @@ public sealed class MapTile : MonoBehaviour
         }
     }
 
+    // Let's consider the gates as lights as well (too late to refactor ir further)
     public IEnumerable<MapItem> Lights
     {
         get
