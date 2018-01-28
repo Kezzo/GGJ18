@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class LightCubeLocationOrchestrator : MonoBehaviour
 {
-    [SerializeField]
-    private List<Transform> m_lightCubeLocations;
+    private List<Transform> m_lightCubeLocations = new List<Transform>();
+    public List<Transform> LightCubeLocations { get { return m_lightCubeLocations; } }
 
     public static LightCubeLocationOrchestrator Instance { get; private set; }
 

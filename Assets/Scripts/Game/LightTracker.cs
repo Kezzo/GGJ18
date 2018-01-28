@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LightTracker : MonoBehaviour {
-	public List<GameObject> transmitters = new List<GameObject>();
+public class LightTracker : MonoBehaviour
+{
+	private readonly List<LightUpBlock> m_transmitters = new List<LightUpBlock>();
+    public List<LightUpBlock> Transmitters { get { return m_transmitters; } }
 
-	[Header("Starting transmitter")]
+    [Header("Starting transmitter")]
 	[SerializeField] GameObject startTransmitter;
 	[SerializeField] Text scoreCounter;
 	[SerializeField] Text lightCounter;
@@ -21,12 +22,12 @@ public class LightTracker : MonoBehaviour {
 
 	private GameController gc;
 
-	void Awake(){
-		if(transmitters.Count.Equals(0)){
-			foreach(GameObject transmitter in GameObject.FindGameObjectsWithTag("Transmitter")) {
-				transmitters.Add(transmitter);
-			}
-		}
+    public static LightTracker Instance { get; private set; }
+
+	void Awake()
+	{
+	    Instance = this;
+
 		gc = gameObject.GetComponent<GameController>();
 		lightCounter.text = ""+lightcount.ToString("000");
 	}
@@ -40,8 +41,9 @@ public class LightTracker : MonoBehaviour {
 
 	void CheckLights(){
 		lightcount = 0;
-		foreach(GameObject transmitter in transmitters){
-			m_lightUpBlock = transmitter.transform.GetComponent<LightUpBlock>();
+		foreach(LightUpBlock transmitter in m_transmitters)
+        {
+			m_lightUpBlock = transmitter;
 			lightCounter.text = ""+lightcount.ToString("000");
 			if(m_lightUpBlock.blockActive()){
 				lightcount++;

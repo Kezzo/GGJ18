@@ -101,6 +101,8 @@ public class LightUpBlock : MonoBehaviour
     // Use this for initialization
     private void Start ()
 	{
+        LightTracker.Instance.Transmitters.Add(this);
+
         m_currentState = State.Activateable;
         m_activationValue = 0f;
         m_normalizedActiveTimeLeft = 0f;
