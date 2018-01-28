@@ -118,6 +118,11 @@ public class LightUpBlock : MonoBehaviour
     // Update is called once per frame
     private void Update ()
     {
+        if (GameoverScreen.Instance != null && GameoverScreen.Instance.gameObject.activeInHierarchy)
+        {
+            StopAllSFX();
+        }
+
         m_rotationRoot.Rotate(new Vector3(0f, 0.3f, 0.3f));
 
         switch (m_currentState)
@@ -254,6 +259,24 @@ public class LightUpBlock : MonoBehaviour
         }
 
         UpdateBrightness();
+    }
+
+    private void StopAllSFX()
+    {
+        if (m_fadeInFX.isPlaying)
+        {
+            m_fadeInFX.Stop();
+        }
+
+        if (m_fadeOutFX.isPlaying)
+        {
+            m_fadeOutFX.Stop();
+        }
+
+        if (m_moveFX.isPlaying)
+        {
+            m_moveFX.Stop();
+        }
     }
 
     private void UpdateBrightness()
