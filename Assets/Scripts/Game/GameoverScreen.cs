@@ -1,27 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameoverScreen : MonoBehaviour {
+public class GameoverScreen : MonoBehaviour
+{
 
-	[SerializeField]
-    GameController gc;
+    [SerializeField] GameController gc;
 
-	[SerializeField]
-    Text bestScore;
+    [SerializeField] Text bestScore;
 
-	[SerializeField]
-    Text endScore;
+    [SerializeField] Text endScore;
 
-    [SerializeField]
-    private Transform m_playAgainButton;
+    [SerializeField] private Transform m_playAgainButton;
 
-    [SerializeField]
-    private Transform m_quitGameButton;
+    [SerializeField] private Transform m_quitGameButton;
 
     private bool m_quitGameIsSelected;
+
+    public static GameoverScreen Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
