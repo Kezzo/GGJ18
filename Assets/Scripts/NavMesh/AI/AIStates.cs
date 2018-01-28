@@ -69,6 +69,10 @@ public static class AIStates
         private float distanceThreadshold;
         private NavMeshAgent agent;
 
+        private float m_lastPushBackTime = 0f;
+        private float m_pushBackCooldown = 0.2f;
+        private float m_force = 100f;
+
         public BlockState(
             float distanceThreadshold,
             Transform target,
@@ -102,6 +106,23 @@ public static class AIStates
                 var relativePos = playerAgent.transform.position - agent.transform.position;
                 var rotation = Quaternion.LookRotation(relativePos);
                 agent.transform.rotation = rotation;
+
+                // Pushback player
+                if ((Time.time - m_lastPushBackTime) >= m_pushBackCooldown)
+                {
+                    m_lastPushBackTime = Time.time;
+
+                    Rigidbody rigidbody = playerAgent.gameObject.GetComponent<Rigidbody>();
+
+                    if (rigidbody != null)
+                    {
+                        yield return new WaitForFixedUpdate();
+                        rigidbody.drag = 1;
+                        rigidbody.AddForce(relativePos.normalized * m_force, ForceMode.Impulse);
+                       
+                        Debug.Log("Pushback");
+                    }
+                }
 
                 // Tries to get in between the target and the player
                 if (distance < distanceThreadshold * distanceThreadshold)

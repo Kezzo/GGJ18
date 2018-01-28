@@ -18,7 +18,7 @@ public class CameraScript : MonoBehaviour {
 
         if (camera != null)
         {
-            camera.orthographicSize = aspectRatio > 1.5f ? 24f : 31f;
+            camera.orthographicSize = aspectRatio > 1.5f ? 23.2f : 31f;
         }
     }
     

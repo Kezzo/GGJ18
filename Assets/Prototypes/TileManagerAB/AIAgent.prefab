@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 195666131308617614}
   distanceThreadshold: 10
-  blockingDistance: 4
+  blockingDistance: 8
   wanderingSpeed: 4
   wanderingDistance: 1
   wanderingDirectionChangePeriod: 1
