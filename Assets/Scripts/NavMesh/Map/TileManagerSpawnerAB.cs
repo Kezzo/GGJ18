@@ -54,5 +54,8 @@ public class TileManagerSpawnerAB : MapManager
         {
             tile.gameObject.SetActive(false);
         }
+
+        instanceA.gameObject.SetActive(true);
+        instanceB.gameObject.SetActive(true);
     }
 }
