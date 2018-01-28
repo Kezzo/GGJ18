@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: CircuitYAxis
-  m_Shader: {fileID: 4800000, guid: 23d8e521e8d99e140a0808a6474533e8, type: 3}
+  m_Name: CircuitZAxisSmallRed
+  m_Shader: {fileID: 4800000, guid: c7ec4ebf59258b14594686e794716608, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -68,14 +68,14 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Power: 5
+    - _Power: 4
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BottomColor: {r: 0.5294118, g: 0.33955377, b: 0, a: 1}
+    - _BottomColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _TopColor: {r: 0.94509804, g: 1, b: 0, a: 1}
+    - _TopColor: {r: 1, g: 0, b: 0, a: 1}
