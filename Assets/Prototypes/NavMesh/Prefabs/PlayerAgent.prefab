@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114723756949199204}
   - component: {fileID: 195115977489571646}
   - component: {fileID: 114767805517896158}
+  - component: {fileID: 114803505738617250}
   m_Layer: 0
   m_Name: PlayerAgent
   m_TagString: Untagged
@@ -115,6 +116,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114803505738617250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1821881341981716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8038ec0f0ae5459399eb74285facef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 195115977489571646}
 --- !u!136 &136255587573795288
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -148,4 +161,4 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 0
