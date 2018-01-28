@@ -6,12 +6,22 @@ public class MainMenu : MonoBehaviour
 	[SerializeField]
     private GameObject menu;
 
+    [SerializeField] 
+    private GameObject about;
+
+    [SerializeField] 
+    private GameObject main;
+
     [SerializeField]
     private Animator m_animator;
 
 	public VideoPlayer vid;
 	private SceneControl scene;
 
+    [SerializeField] AudioClip select;
+    [SerializeField] AudioClip pick;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioSource musicSource;
 
     private bool m_inputActive;
 
@@ -37,6 +47,7 @@ public class MainMenu : MonoBehaviour
 			menu.SetActive(true);
             m_animator.SetTrigger("Show");
 		    m_inputActive = true;
+            musicSource.Play();
 		}
 	}
 
@@ -49,10 +60,12 @@ public class MainMenu : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") > 0)
         {
+            PlaySound(select);
             m_animator.SetBool("IsRightActive", true);
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
+            PlaySound(select);
             m_animator.SetBool("IsRightActive", false);
         }
 
@@ -71,15 +84,26 @@ public class MainMenu : MonoBehaviour
     }
 
 	public void PlayGame(){
-		StartCoroutine(scene.LoadScene(0.0f, "playerTest"));
+		StartCoroutine(scene.LoadScene(1.0f, "playerTest"));
+        PlaySound(pick);
 	}
 
 	public void AboutMenu(){
-
+        PlaySound(pick);
+        main.SetActive(false);
+        about.SetActive(true);
 	}
 
-	public void ExitGame(){
-
+	public void Back(){
+        PlaySound(pick);
+        main.SetActive(true);
+        about.SetActive(false);
 	}
+
+    void PlaySound(AudioClip sound){
+        if(!audioSource.isPlaying){
+            audioSource.PlayOneShot(sound);
+        }
+    }
 
 }
