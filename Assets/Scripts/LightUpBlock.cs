@@ -133,7 +133,7 @@ public class LightUpBlock : MonoBehaviour
 
                 if (m_canSoundsPlay)
                 {
-                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    if (GameoverScreen.Instance == null || (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy))
                     {
                         m_fadeInFX.Play();
                     }
@@ -176,7 +176,7 @@ public class LightUpBlock : MonoBehaviour
 
                 if (m_canSoundsPlay && m_normalizedDissolveValue <= 0.8f)
                 {
-                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    if (GameoverScreen.Instance == null || (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy))
                     {
                         m_fadeOutFX.Play();
                     }
@@ -201,7 +201,7 @@ public class LightUpBlock : MonoBehaviour
                 {
                     m_animator.SetBool("Hidden", true);
 
-                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    if (GameoverScreen.Instance == null || (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy))
                     {
                         m_moveFX.Play();
                     }
@@ -227,7 +227,7 @@ public class LightUpBlock : MonoBehaviour
                 {
                     m_animator.SetBool("Hidden", false);
 
-                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    if (GameoverScreen.Instance == null || (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy))
                     {
                         m_moveFX.Play();
                     }
