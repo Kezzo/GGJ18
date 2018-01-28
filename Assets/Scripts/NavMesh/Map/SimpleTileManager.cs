@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleTileManager : TileManagerBase
+public class SimpleTileManager : MapManager
 {
     [SerializeField]
     private MapTile[] tiles;

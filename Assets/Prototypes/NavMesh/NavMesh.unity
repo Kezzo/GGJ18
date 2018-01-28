@@ -1045,7 +1045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfEnemies: 5
   enemyPrefab: {fileID: 233960945}
-  mapManager: {fileID: 643401656}
+  mapManager: {fileID: 643401654}
   aiManager: {fileID: 1346833879}
   enemyContainer: {fileID: 1346833880}
   behaviour: 0
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6698a34706b143c38c501151f21986b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapManager: {fileID: 643401656}
+  mapManager: {fileID: 643401654}
   enemyToGateInterval: 5
 --- !u!4 &1346833880
 Transform:

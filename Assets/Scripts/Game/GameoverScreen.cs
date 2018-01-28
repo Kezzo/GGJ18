@@ -1,32 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameoverScreen : MonoBehaviour {
+public class GameoverScreen : MonoBehaviour
+{
 
-	[SerializeField]
-    GameController gc;
+    [SerializeField] GameController gc;
 
-	[SerializeField]
-    Text bestScore;
+    [SerializeField] Text bestScore;
 
-	[SerializeField]
-    Text endScore;
+    [SerializeField] Text endScore;
+
+    [SerializeField] private Transform m_playAgainButton;
+
+    [SerializeField] private Transform m_quitGameButton;
 
     [SerializeField]
-    private Transform m_playAgainButton;
+    private AudioSource m_uiPickSFX;
 
     [SerializeField]
-    private Transform m_quitGameButton;
+    private AudioSource m_uiSelectSFX;
 
     private bool m_quitGameIsSelected;
+
+    public static GameoverScreen Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         this.m_playAgainButton.localScale = new Vector3(1.25f, 1.25f, 1.5f);
-        this.m_quitGameButton.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        this.m_quitGameButton.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     void Update()
@@ -36,6 +43,7 @@ public class GameoverScreen : MonoBehaviour {
 
 	    if (Input.GetAxis("Vertical") > 0 && m_quitGameIsSelected)
 	    {
+	        PlayUIPickSound();
             this.m_playAgainButton.localScale = new Vector3(1.25f, 1.25f, 1.5f);
             this.m_quitGameButton.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
@@ -43,6 +51,7 @@ public class GameoverScreen : MonoBehaviour {
 	    }
         else if (Input.GetAxis("Vertical") < 0 && !m_quitGameIsSelected)
         {
+            PlayUIPickSound();
             this.m_quitGameButton.localScale = new Vector3(1.25f, 1.25f, 1.5f);
             this.m_playAgainButton.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
@@ -51,6 +60,8 @@ public class GameoverScreen : MonoBehaviour {
 
         if (Input.GetButton("Fire1"))
         {
+            m_uiSelectSFX.Play();
+
             if (m_quitGameIsSelected)
             {
                 Exit();
@@ -62,12 +73,21 @@ public class GameoverScreen : MonoBehaviour {
         }
     }
 
-	public void Restart(){
+	public void Restart()
+    {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void Exit(){
 		Application.Quit();
 	}
+
+    public void PlayUIPickSound()
+    {
+        if (!m_uiPickSFX.isPlaying)
+        {
+            m_uiPickSFX.Play();
+        }
+    }
 
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 [DefaultExecutionOrder(-200)]
-public class TileManagerSpawnerAB : TileManagerBase
+public class TileManagerSpawnerAB : MapManager
 {
     #region fields in the scene
     [SerializeField]

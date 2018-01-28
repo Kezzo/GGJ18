@@ -1171,6 +1171,31 @@ Prefab:
       propertyPath: lightCounter
       value: 
       objectReference: {fileID: 262532747}
+    - target: {fileID: 114264286988306390, guid: df414c21627007749b880c3757ad6895,
+        type: 2}
+      propertyPath: UIText
+      value: 
+      objectReference: {fileID: 975774716}
+    - target: {fileID: 114264286988306390, guid: df414c21627007749b880c3757ad6895,
+        type: 2}
+      propertyPath: ScoreText
+      value: 
+      objectReference: {fileID: 937581557}
+    - target: {fileID: 114264286988306390, guid: df414c21627007749b880c3757ad6895,
+        type: 2}
+      propertyPath: Blackscreen
+      value: 
+      objectReference: {fileID: 1724331808}
+    - target: {fileID: 114264286988306390, guid: df414c21627007749b880c3757ad6895,
+        type: 2}
+      propertyPath: gameover
+      value: 
+      objectReference: {fileID: 1011631064}
+    - target: {fileID: 114264286988306390, guid: df414c21627007749b880c3757ad6895,
+        type: 2}
+      propertyPath: gameUI
+      value: 
+      objectReference: {fileID: 1551198873}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df414c21627007749b880c3757ad6895, type: 2}
   m_IsPrefabParent: 0
@@ -1331,44 +1356,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1237673381}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1356821446 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1421225633357146, guid: df414c21627007749b880c3757ad6895,
+--- !u!114 &1356821449 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114264286988306390, guid: df414c21627007749b880c3757ad6895,
     type: 2}
   m_PrefabInternal: {fileID: 1002090240}
---- !u!114 &1356821449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1356821446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0530e97e729bc1c4797c86928171571a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UIText: {fileID: 975774716}
-  ScoreText: {fileID: 937581557}
-  Blackscreen: {fileID: 1724331808}
-  gameover: {fileID: 1011631064}
-  gameUI: {fileID: 1551198873}
-  score: 0
-  GameStarted: 0
-  GameOver: 0
-  gamePaused: 0
-  endScore: 0
-  bestScore: 0
---- !u!114 &1356821450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1356821446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e35f354bbcfc64e45abc46a12fb53bf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1463179126
 GameObject:
   m_ObjectHideFlags: 0

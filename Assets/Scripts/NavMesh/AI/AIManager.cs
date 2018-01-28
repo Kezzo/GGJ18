@@ -14,8 +14,8 @@ public class AIManager : MonoBehaviour
     #endregion
 
     private List<AIAgent> enemies = new List<AIAgent>();
-    private List<Gate> targetedGates = new List<Gate>();
-    private Dictionary<AIAgent, Gate> targetedGatesByUnit = new Dictionary<AIAgent, Gate>();
+    private List<MapItem> targetedLights = new List<MapItem>();
+    private Dictionary<AIAgent, MapItem> targetedLightsByUnit = new Dictionary<AIAgent, MapItem>();
 
     public void AddEnemy(AIAgent instance)
     {
@@ -23,41 +23,40 @@ public class AIManager : MonoBehaviour
         instance.Init(this);
     }
 
-    public Gate AssignMeAGate(AIAgent agent)
+    public MapItem AssignMeALight(AIAgent agent)
     {
         // Return previously targeted gate
-        Gate oldGate = null;
-        if (targetedGatesByUnit.TryGetValue(agent, out oldGate))
+        MapItem oldGate = null;
+        if (targetedLightsByUnit.TryGetValue(agent, out oldGate))
         {
-            targetedGates.Remove(oldGate);
-            targetedGatesByUnit.Remove(agent);
+            targetedLights.Remove(oldGate);
+            targetedLightsByUnit.Remove(agent);
         }
 
         // Search for a free gate
         var freeGates =
-            from gate in mapManager.Gates.Randomize()
-            where !targetedGates.Contains(gate)
+            from gate in mapManager.Lights.Randomize()
+            where !targetedLights.Contains(gate)
             select gate;
 
         // Assign the gate
         var selectedGate = freeGates.FirstOrDefault();
         if (selectedGate != null)
         {
-            targetedGates.Add(selectedGate);
-            targetedGatesByUnit[agent] = selectedGate;
-            agent.AssignedLight(selectedGate);
+            targetedLights.Add(selectedGate);
+            targetedLightsByUnit[agent] = selectedGate;
         }
 
         return selectedGate;
     }
 
-    public void ReturnAGate(AIAgent agent)
+    public void ReturnALight(AIAgent agent)
     {
-        Gate oldGate = null;
-        if (targetedGatesByUnit.TryGetValue(agent, out oldGate))
+        MapItem oldGate = null;
+        if (targetedLightsByUnit.TryGetValue(agent, out oldGate))
         {
-            targetedGates.Remove(oldGate);
-            targetedGatesByUnit.Remove(agent);
+            targetedLights.Remove(oldGate);
+            targetedLightsByUnit.Remove(agent);
         }
     }
 
@@ -66,7 +65,7 @@ public class AIManager : MonoBehaviour
     {
         Debug.Log("AIManager");
         Debug.Log("---------");
-        foreach (var entry in targetedGatesByUnit)
+        foreach (var entry in targetedLightsByUnit)
         {
             Debug.Log(entry.Key + " " + entry.Value);
         }
