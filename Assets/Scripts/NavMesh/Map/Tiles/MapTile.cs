@@ -1,16 +1,32 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Linq;
+using System.Collections.Generic;
 
 [DefaultExecutionOrder(-100)]
-public class MapTile : MonoBehaviour 
+public sealed class MapTile : MonoBehaviour 
 {
     [SerializeField]
-    private Gate[] gates;
+    private MapGate[] gates;
 
     [SerializeField]
-    private Transform[] lights;
+    private List<MapLight> lights;
 
-    public IEnumerable<Gate> Gates
+    // TODO: Make this class a little bit prettier
+    private void Awake()
+    {
+        foreach (var light in GetComponentsInChildren<LightUpBlock>())
+        {
+            var lightBhv = light.GetComponent<MapLight>();
+            if (lightBhv == null)
+            {
+                lightBhv = light.gameObject.AddComponent<MapLight>();
+            }
+
+            lights.Add(lightBhv);
+        }
+    }
+
+    public IEnumerable<MapGate> Gates
     {
         get
         {
@@ -18,11 +34,19 @@ public class MapTile : MonoBehaviour
         }
     }
 
-    public IEnumerable<Transform> Lights
+    public IEnumerable<MapItem> Lights
     {
         get
         {
-            return lights;
+            foreach (var gate in gates)
+            {
+                yield return gate;
+            }
+
+            foreach (var light in lights)
+            {
+                yield return light;
+            }
         }
     }
 }

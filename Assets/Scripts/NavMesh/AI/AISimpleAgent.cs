@@ -41,7 +41,7 @@ public class AISimpleAgent : AIAgent
             {
                 yield return new WaitForSeconds(2);
 
-                var newGate = aIManager.AssignMeAGate(this);
+                var newGate = aIManager.AssignMeALight(this);
 
                 GoTo(newGate.gameObject);
             }

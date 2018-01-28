@@ -17,8 +17,4 @@ public class AIAgent : MonoBehaviour
     {
         this.aIManager = aIManager;
     }
-
-    public virtual void AssignedLight(Gate selectedGate)
-    {
-    }
 }

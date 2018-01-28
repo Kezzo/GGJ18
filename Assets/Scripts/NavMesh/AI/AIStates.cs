@@ -142,6 +142,7 @@ public static class AIStates
 
     public class NextLightState : State
     {
+        public MapItem light;
         private AIAgent aiagent;
         private NavMeshAgent agent;
         private AIManager aimanager;
@@ -163,10 +164,10 @@ public static class AIStates
 
             while (true)
             {
-                var newGate = aimanager.AssignMeAGate(aiagent);
-                if (newGate != null)
+                light = aimanager.AssignMeALight(aiagent);
+                if (light != null)
                 {
-                    agent.destination = newGate.transform.position;
+                    agent.destination = light.transform.position;
 
                     while (agent.destination.XZ() != agent.transform.position.XZ())
                     {
@@ -176,13 +177,13 @@ public static class AIStates
 
                 yield return new WaitForSeconds(.5f);
 
-                aimanager.ReturnAGate(aiagent);
+                aimanager.ReturnALight(aiagent);
             }
         }
 
         public void Exit()
         {
-            aimanager.ReturnAGate(aiagent);
+            aimanager.ReturnALight(aiagent);
         }
     }
 }
