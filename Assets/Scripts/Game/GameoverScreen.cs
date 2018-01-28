@@ -27,7 +27,7 @@ public class GameoverScreen : MonoBehaviour
     private void Start()
     {
         this.m_playAgainButton.localScale = new Vector3(1.25f, 1.25f, 1.5f);
-        this.m_quitGameButton.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        this.m_quitGameButton.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     void Update()
