@@ -116,6 +116,7 @@ MonoBehaviour:
   maxSpeed: 5
   _impulse: 1
   _acceleration: 0
+  AllowInput: 1
 --- !u!114 &114796301733682430
 MonoBehaviour:
   m_ObjectHideFlags: 1
