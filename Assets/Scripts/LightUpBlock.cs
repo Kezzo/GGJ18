@@ -47,6 +47,17 @@ public class LightUpBlock : MonoBehaviour
         public float m_DurationInSeconds;
     }
 
+    [Header("Sounds")]
+
+    [SerializeField]
+    private AudioSource m_fadeInFX;
+
+    [SerializeField]
+    private AudioSource m_fadeOutFX;
+
+    [SerializeField]
+    private AudioSource m_moveFX;
+
     private MaterialPropertyBlock m_gradientMaterialPropertyBlock;
     private MaterialPropertyBlock m_dissolveMaterialPropertyBlock;
 
@@ -85,6 +96,8 @@ public class LightUpBlock : MonoBehaviour
     [SerializeField]
     private State m_currentState;
 
+    private bool m_canSoundsPlay = true;
+
     // Use this for initialization
     private void Start ()
 	{
@@ -110,6 +123,16 @@ public class LightUpBlock : MonoBehaviour
         switch (m_currentState)
         {
             case State.Activating:
+
+                if (m_canSoundsPlay)
+                {
+                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    {
+                        m_fadeInFX.Play();
+                    }
+                    m_canSoundsPlay = false;
+                }
+
                 m_activationValue = Mathf.Clamp01(m_activationValue + 
                     (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
 
@@ -137,11 +160,23 @@ public class LightUpBlock : MonoBehaviour
                 if (m_activationValue <= 0)
                 {
                     m_normalizedDissolveValue = 1f;
+                    m_canSoundsPlay = true;
                     m_currentState = State.Dissolving;
                 }
 
                 break;
             case State.Dissolving:
+
+                if (m_canSoundsPlay && m_normalizedDissolveValue <= 0.8f)
+                {
+                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    {
+                        m_fadeOutFX.Play();
+                    }
+                    
+                    m_canSoundsPlay = false;
+                }
+
                 m_normalizedDissolveValue = Mathf.Clamp01(m_normalizedDissolveValue - 
                     (1 / GetStateDuration(m_currentState)) * Time.deltaTime);
 
@@ -158,6 +193,11 @@ public class LightUpBlock : MonoBehaviour
                 if (!m_animator.GetBool("Hidden"))
                 {
                     m_animator.SetBool("Hidden", true);
+
+                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    {
+                        m_moveFX.Play();
+                    }
                 }
 
                 break;
@@ -179,7 +219,13 @@ public class LightUpBlock : MonoBehaviour
                 if (m_normalizedAppearanceTimeLeft <= 0)
                 {
                     m_animator.SetBool("Hidden", false);
+
+                    if (GameoverScreen.Instance != null && !GameoverScreen.Instance.gameObject.activeInHierarchy)
+                    {
+                        m_moveFX.Play();
+                    }
                     m_currentState = State.Dissolved;
+                    m_canSoundsPlay = true;
                 }
 
                 break;
