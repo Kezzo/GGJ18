@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class CharControl : MonoBehaviour {
 
@@ -31,6 +32,14 @@ public class CharControl : MonoBehaviour {
         {
 			rb = GetComponent<Rigidbody>();
 		}
+
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+
+	    if (agent != null)
+        {
+            agent.updateRotation = false;
+            agent.updatePosition = false;
+        }
 
 		StartAcc = characceleration;
 		StartMaxSpeed = maxSpeed;
