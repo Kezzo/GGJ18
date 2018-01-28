@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.4480539, g: 0.4980623, b: 0.5755231, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -16892,18 +16892,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4848892151566356, guid: cdb13c8c08ac348da94075665c4ee5aa, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848892151566356, guid: cdb13c8c08ac348da94075665c4ee5aa, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4848892151566356, guid: cdb13c8c08ac348da94075665c4ee5aa, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1107029558159170, guid: cdb13c8c08ac348da94075665c4ee5aa, type: 2}
       propertyPath: m_Name
       value: Tile (5)
@@ -19375,7 +19363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1528694636
 Light:
   m_ObjectHideFlags: 0
@@ -19386,13 +19374,13 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.15
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
+    m_Type: 1
+    m_Resolution: 1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -19418,13 +19406,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1528694635}
-  m_LocalRotation: {x: 0.40821785, y: -0.23456967, z: 0.10938166, w: 0.8754261}
+  m_LocalRotation: {x: 0.36962593, y: -0.22957286, z: 0.11951394, w: 0.8924066}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 45.609, y: -27.35, z: 3.5730002}
 --- !u!1 &1531972856
 GameObject:
   m_ObjectHideFlags: 0
@@ -23401,7 +23389,7 @@ Prefab:
     - target: {fileID: 114404266765612680, guid: 418a395ce470fc4439804914622f123c,
         type: 2}
       propertyPath: maxSpeed
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 418a395ce470fc4439804914622f123c, type: 2}
