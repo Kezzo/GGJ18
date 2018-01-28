@@ -13,7 +13,7 @@ public class GameoverScreen : MonoBehaviour {
 
 
 	void Update(){
-		bestScore.text = ""+gc.bestScore.ToString("000");
+		bestScore.text = ""+PlayerPrefs.GetFloat("highscore", gc.bestScore).ToString("000");
 		endScore.text = ""+gc.endScore.ToString("000");
 	}
 
