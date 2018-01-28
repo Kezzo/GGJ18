@@ -90,7 +90,7 @@ public static class AIStates
             var animator = agent.GetComponentInChildren<Animator>();
             if (animator != null)
             {
-                animator.SetBool("Blocking", true);
+                //animator.SetBool("Blocking", true);
             }
 
             while (true)
@@ -116,6 +116,11 @@ public static class AIStates
 
                     agent.destination =
                         target.transform.position + direction.normalized * distanceThreadshold;
+                }
+
+                if (animator != null)
+                {
+                    animator.SetBool("Blocking", distance < distanceThreadshold * distanceThreadshold * 2);
                 }
 
                 yield return null;
