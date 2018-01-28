@@ -609,7 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gates:
   - {fileID: 424592021}
-  lightItem: {fileID: 424592020}
+  lights: []
 --- !u!1 &643401653
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +618,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 643401655}
-  - component: {fileID: 643401654}
   - component: {fileID: 643401656}
   m_Layer: 0
   m_Name: Map
@@ -627,18 +626,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &643401654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 643401653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f402fc96a635499582b830180ba3a35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileManager: {fileID: 643401656}
 --- !u!4 &643401655
 Transform:
   m_ObjectHideFlags: 0
@@ -999,7 +986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gates:
   - {fileID: 752590870}
-  lightItem: {fileID: 752590869}
+  lights: []
 --- !u!1 &1346833877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfEnemies: 2
   enemyPrefab: {fileID: 99581360}
-  mapManager: {fileID: 643401654}
+  mapManager: {fileID: 643401656}
   aiManager: {fileID: 1346833879}
   enemyContainer: {fileID: 1346833880}
   behaviour: 0
@@ -1045,7 +1032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6698a34706b143c38c501151f21986b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapManager: {fileID: 643401654}
+  mapManager: {fileID: 643401656}
   enemyToGateInterval: 5
 --- !u!4 &1346833880
 Transform:
@@ -1104,7 +1091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gates:
   - {fileID: 738630044}
-  lightItem: {fileID: 738630040}
+  lights: []
 --- !u!1 &1498701213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gates:
   - {fileID: 283563322}
-  lightItem: {fileID: 283563318}
+  lights: []
 --- !u!4 &1545643808 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4034827841962040, guid: 8a8feec8d5fae4d0db4ab617df8929c8,
@@ -1332,4 +1319,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gates:
   - {fileID: 320449587}
-  lightItem: {fileID: 320449583}
+  lights: []
