@@ -11,6 +11,15 @@ public sealed class MapTile : MonoBehaviour
     [SerializeField]
     private List<MapLight> lights;
 
+    [SerializeField]
+    public bool link0;
+
+    [SerializeField]
+    public bool link1;
+
+    [SerializeField]
+    public bool link2;
+
     private void Awake()
     {
         lights.AddRange(

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -7,17 +8,21 @@ public class TileManagerSpawnerAB : MapManager
 {
     #region fields in the scene
     [SerializeField]
-    private GameObject[] ATiles;
+    private MapTile[] ATiles;
     [SerializeField]
-    private GameObject[] BTiles;
+    private MapTile[] BTiles;
     [SerializeField]
     private Transform ATileContainer;
     [SerializeField]
     private Transform BTileContainer;
     [SerializeField]
-    public float tileSizeX = 4.0f;
+    private float tileSizeX = 4.0f;
     [SerializeField]
-    public float tileSizeY = 4.0f;
+    private float tileSizeY = 4.0f;
+    [SerializeField]
+    private NavMeshLink[] navMeshLinkA;
+    [SerializeField]
+    private NavMeshLink[] navMeshLinkB;
     #endregion
 
     private List<MapTile> tiles = new List<MapTile>();
@@ -57,5 +62,16 @@ public class TileManagerSpawnerAB : MapManager
 
         instanceA.gameObject.SetActive(true);
         instanceB.gameObject.SetActive(true);
+
+        var link0 = instanceA.link0 && instanceB.link0;
+        var link1 = instanceA.link1 && instanceB.link1;
+        var link2 = instanceA.link2 && instanceB.link2;
+
+        navMeshLinkA[0].gameObject.SetActive(link0);
+        navMeshLinkB[0].gameObject.SetActive(link0);
+        navMeshLinkA[1].gameObject.SetActive(link1);
+        navMeshLinkB[1].gameObject.SetActive(link1);
+        navMeshLinkA[2].gameObject.SetActive(link2);
+        navMeshLinkB[2].gameObject.SetActive(link2);
     }
 }

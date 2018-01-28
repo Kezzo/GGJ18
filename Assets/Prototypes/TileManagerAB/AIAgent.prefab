@@ -1170,6 +1170,7 @@ GameObject:
   - component: {fileID: 195666131308617614}
   - component: {fileID: 54386154460210020}
   - component: {fileID: 114159299827255978}
+  - component: {fileID: 114195857367735264}
   m_Layer: 9
   m_Name: AIAgent
   m_TagString: Player
@@ -3081,11 +3082,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 195666131308617614}
   distanceThreadshold: 10
-  blockingDistance: 8
+  blockingDistance: 6
   wanderingSpeed: 4
   wanderingDistance: 1
   wanderingDirectionChangePeriod: 1
   wanderingTime: 4
+--- !u!114 &114195857367735264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1988405354757364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03bc8063c9e95401f9a8a38bc716750d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 1
+  m_Curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!136 &136632749228563122
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3107,7 +3126,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1988405354757364}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.5
+  m_Radius: 2.5
   m_Speed: 40
   m_Acceleration: 20
   avoidancePriority: 50
