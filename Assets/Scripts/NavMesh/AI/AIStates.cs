@@ -164,7 +164,7 @@ public static class AIStates
             while (true)
             {
                 var newGate = aimanager.AssignMeAGate(aiagent);
-                if (newGate == null)
+                if (newGate != null)
                 {
                     agent.destination = newGate.transform.position;
 
