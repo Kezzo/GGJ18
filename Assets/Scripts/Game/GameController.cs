@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour {
 	[SerializeField] Image Blackscreen;
 	[SerializeField] GameObject gameover;
 	[SerializeField] GameObject gameUI;
+
+    [SerializeField]
+    private AudioSource m_gameLoopMusic;
+
 	public float score;
 
 	[HideInInspector]
@@ -62,7 +66,9 @@ public class GameController : MonoBehaviour {
 			lt.FirstLight();
 			StartCoroutine(lt.StartChecking());
 
-		    if (CharControl.Instance != null)
+            m_gameLoopMusic.Play();
+
+            if (CharControl.Instance != null)
 		    {
 		        CharControl.Instance.AllowInput = true;
 		    }
@@ -74,10 +80,12 @@ public class GameController : MonoBehaviour {
 		scene = gameObject.GetComponent<SceneControl>();
 	}
 
-	IEnumerator GameoverText(){
-		yield return new WaitForSeconds (0.75f);
-		gameover.SetActive(true);
-	}
+	IEnumerator GameoverText()
+    {
+        yield return new WaitForSeconds (0.75f);
+        m_gameLoopMusic.Stop();
+        gameover.SetActive(true);
+    }
 
 	public void AddScore(){
 		score++;

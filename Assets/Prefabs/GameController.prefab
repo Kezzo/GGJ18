@@ -53,7 +53,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 97b231eaea1873849a513d89ddce1856, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
@@ -156,6 +156,7 @@ MonoBehaviour:
   Blackscreen: {fileID: 0}
   gameover: {fileID: 0}
   gameUI: {fileID: 0}
+  m_gameLoopMusic: {fileID: 82683817745404710}
   score: 0
   GameStarted: 0
   GameOver: 0
