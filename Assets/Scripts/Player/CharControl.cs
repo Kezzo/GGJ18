@@ -14,6 +14,7 @@ public class CharControl : MonoBehaviour {
 	[SerializeField]
     bool _acceleration;
 	private Rigidbody rb;
+	private Quaternion rotation;
 
 	private float StartAcc;
 	private float StartMaxSpeed;
@@ -59,6 +60,9 @@ public class CharControl : MonoBehaviour {
 			rb.AddForce(charmovement * maxSpeed, ForceMode.Impulse);
 		} else if (_acceleration){
 			rb.AddForce(charmovement * characceleration * 2, ForceMode.Acceleration);
+		}
+		if(moveHorizontal != 0 || moveVertical != 0){
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(charmovement), 0.15F);
 		}
 
 		rb.drag = characceleration / maxSpeed;
